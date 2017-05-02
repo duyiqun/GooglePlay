@@ -17,5 +17,7 @@ public class GooglePlay extends Application {
     public void onCreate() {
         super.onCreate();
 
+        mainHandler = new Handler();
+        context = this;
     }
 }

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.qun.googleplay.adapter.MainShowAdapter;
 import com.qun.googleplay.bean.FragmentInfo;
 import com.qun.googleplay.ui.fragment.MainFragment;
+import com.qun.googleplay.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,9 +90,16 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         //如果参数是三个参上的就不要这么写
-        for (int i = 0; i < 5; i++) {
-            mShowItems.add(new FragmentInfo(new MainFragment(), R.string.tab));
-        }
+//        for (int i = 0; i < 5; i++) {
+//            mShowItems.add(new FragmentInfo(new MainFragment(), "标题" + i));
+//        }
+
+        String[] titles = Utils.getStringArray(R.array.tab_names);
+        mShowItems.add(new FragmentInfo(new MainFragment(), titles[0]));
+        mShowItems.add(new FragmentInfo(new MainFragment(), titles[1]));
+        mShowItems.add(new FragmentInfo(new MainFragment(), titles[2]));
+        mShowItems.add(new FragmentInfo(new MainFragment(), titles[3]));
+        mShowItems.add(new FragmentInfo(new MainFragment(), titles[4]));
 
         //2. 初始化viewpager
         mVpMainShowLayout.setAdapter(new MainShowAdapter(getSupportFragmentManager(), mShowItems));
