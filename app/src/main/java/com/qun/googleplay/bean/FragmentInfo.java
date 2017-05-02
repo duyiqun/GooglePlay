@@ -13,8 +13,8 @@ public class FragmentInfo {
     //显示title
     public String title;
 
-//    public FragmentInfo(Fragment fragment, String title) {
-//        this.fragment = fragment;
-//        this.title = title;
-//    }
+    public FragmentInfo(Fragment fragment, String title) {
+        this.fragment = fragment;
+        this.title = title;
+    }
 }

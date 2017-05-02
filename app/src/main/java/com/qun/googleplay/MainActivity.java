@@ -81,11 +81,16 @@ public class MainActivity extends AppCompatActivity {
         //初始化代码
 
         //初始化集合
+//        for (int i = 0; i < 5; i++) {
+//            FragmentInfo fragmentInfo = new FragmentInfo();
+//            fragmentInfo.fragment = new MainFragment();
+//            fragmentInfo.title = "标题" + i;
+//            mShowItems.add(fragmentInfo);
+//        }
+
+        //如果参数是三个参上的就不要这么写
         for (int i = 0; i < 5; i++) {
-            FragmentInfo fragmentInfo = new FragmentInfo();
-            fragmentInfo.fragment = new MainFragment();
-            fragmentInfo.title = "标题" + i;
-            mShowItems.add(fragmentInfo);
+            mShowItems.add(new FragmentInfo(new MainFragment(), R.string.tab));
         }
 
         //2. 初始化viewpager
