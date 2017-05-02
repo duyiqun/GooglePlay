@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * Created by Qun on 2017/5/2.
  */
 
-public class MainFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     @Nullable
     @Override
@@ -28,20 +28,20 @@ public class MainFragment extends Fragment {
             //得到数据的方法
             @Override
             public Object getNetData() {
-                ArrayList<Object> objects = new ArrayList<>();
-                objects.add(new Object());
-                return objects;
+                return getData();
             }
 
             @Override
             public View createSuccessView() {
-                ImageView imageView = new ImageView(getContext());
-                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(30, 30);
-                imageView.setLayoutParams(layoutParams);
-                imageView.setImageResource(R.mipmap.ic_launcher);
-                return imageView;
+                return createView();
             }
         };
         return loadPager;
     }
+
+    //返回一个界面
+    protected abstract View createView();
+
+    //返回一个数据
+    public abstract Object getData();
 }

@@ -1,4 +1,4 @@
-package com.qun.googleplay;
+package com.qun.googleplay.ui.acitvity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,9 +9,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.qun.googleplay.R;
 import com.qun.googleplay.adapter.MainShowAdapter;
 import com.qun.googleplay.bean.FragmentInfo;
-import com.qun.googleplay.ui.fragment.MainFragment;
+import com.qun.googleplay.ui.fragment.HomeFragment;
 import com.qun.googleplay.utils.Utils;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @BindView(R.id.activity_root)
     DrawerLayout mActivityRoot;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
 
         initActionbar();
         init();
@@ -84,22 +87,22 @@ public class MainActivity extends AppCompatActivity {
         //初始化集合
 //        for (int i = 0; i < 5; i++) {
 //            FragmentInfo fragmentInfo = new FragmentInfo();
-//            fragmentInfo.fragment = new MainFragment();
+//            fragmentInfo.fragment = new BaseFragment();
 //            fragmentInfo.title = "标题" + i;
 //            mShowItems.add(fragmentInfo);
 //        }
 
         //如果参数是三个参上的就不要这么写
 //        for (int i = 0; i < 5; i++) {
-//            mShowItems.add(new FragmentInfo(new MainFragment(), "标题" + i));
+//            mShowItems.add(new FragmentInfo(new BaseFragment(), "标题" + i));
 //        }
 
         String[] titles = Utils.getStringArray(R.array.tab_names);
-        mShowItems.add(new FragmentInfo(new MainFragment(), titles[0]));
-        mShowItems.add(new FragmentInfo(new MainFragment(), titles[1]));
-        mShowItems.add(new FragmentInfo(new MainFragment(), titles[2]));
-        mShowItems.add(new FragmentInfo(new MainFragment(), titles[3]));
-        mShowItems.add(new FragmentInfo(new MainFragment(), titles[4]));
+        mShowItems.add(new FragmentInfo(new HomeFragment(), titles[0]));
+        mShowItems.add(new FragmentInfo(new HomeFragment(), titles[1]));
+        mShowItems.add(new FragmentInfo(new HomeFragment(), titles[2]));
+        mShowItems.add(new FragmentInfo(new HomeFragment(), titles[3]));
+        mShowItems.add(new FragmentInfo(new HomeFragment(), titles[4]));
 
         //2. 初始化viewpager
         mVpMainShowLayout.setAdapter(new MainShowAdapter(getSupportFragmentManager(), mShowItems));
