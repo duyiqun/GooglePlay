@@ -1,11 +1,20 @@
 package com.qun.googleplay;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import com.qun.googleplay.adapter.MainShowAdapter;
+import com.qun.googleplay.bean.FragmentInfo;
+import com.qun.googleplay.ui.fragment.MainFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -14,7 +23,14 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.activity_root)
     DrawerLayout mActivityRoot;
+    @BindView(R.id.tab_main_title)
+    TabLayout mTabMainTitle;
+    @BindView(R.id.vp_main_show_layout)
+    ViewPager mVpMainShowLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+
+    //显示的集合
+    private List<FragmentInfo> mShowItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +78,20 @@ public class MainActivity extends AppCompatActivity {
     //初始化代码
     private void init() {
 
+        //初始化代码
 
+        //初始化集合
+        for (int i = 0; i < 5; i++) {
+            FragmentInfo fragmentInfo = new FragmentInfo();
+            fragmentInfo.fragment = new MainFragment();
+            fragmentInfo.title = "标题" + i;
+            mShowItems.add(fragmentInfo);
+        }
+
+        //2. 初始化viewpager
+        mVpMainShowLayout.setAdapter(new MainShowAdapter(getSupportFragmentManager(), mShowItems));
+
+        //1.页签与viewpager绑定
+        mTabMainTitle.setupWithViewPager(mVpMainShowLayout);
     }
 }
