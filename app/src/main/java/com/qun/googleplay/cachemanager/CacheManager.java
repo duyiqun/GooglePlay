@@ -5,6 +5,7 @@ import android.os.Environment;
 import com.qun.googleplay.global.GooglePlay;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 /**
@@ -15,8 +16,17 @@ import java.io.FileOutputStream;
 class CacheManager {
 
     private static CacheManager sCacheManager = new CacheManager();
+    private final String mPath;
 
     private CacheManager() {
+        mPath = Environment.getExternalStorageDirectory().getPath() + File.separator + GooglePlay.context.getPackageName();
+        //文件夹多级目录应该手动创建
+        File pathDir = new File(mPath);
+
+        //多级目录需要创建
+        if (!pathDir.exists()) {
+            pathDir.mkdirs();
+        }
     }
 
     public static CacheManager getInstance() {
@@ -26,23 +36,37 @@ class CacheManager {
     //传入url返回对应的数据
     public String getCacheData(String url) {
 
-        return "";
+        StringBuffer stringBuffer = new StringBuffer();
+        try {
+            File file = new File(mPath, getFileName(url));
+            FileInputStream fileInputStream = new FileInputStream(file);
+
+            byte[] buffer = new byte[1024];
+            int len = -1;
+            while ((len = fileInputStream.read(buffer)) != -1) {
+                stringBuffer.append(new String(buffer, 0, len));
+            }
+            return stringBuffer.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     //保存对应的数据
     public void saveCacheData(String url, String content) {
         //sd卡根目录包名
         try {
-            String path = Environment.getExternalStorageDirectory().getPath() + File.separator + GooglePlay.context.getPackageName();
-            //文件夹多级目录应该手动创建
-            File pathDir = new File(path);
+//            String path = Environment.getExternalStorageDirectory().getPath() + File.separator + GooglePlay.context.getPackageName();
+//            //文件夹多级目录应该手动创建
+//            File pathDir = new File(path);
+//
+//            //多级目录需要创建
+//            if (!pathDir.exists()) {
+//                pathDir.mkdirs();
+//            }
 
-            //多级目录需要创建
-            if (!pathDir.exists()) {
-                pathDir.mkdirs();
-            }
-
-            File file = new File(pathDir, getFileName(url));
+            File file = new File(mPath, getFileName(url));
 
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(content.getBytes());
@@ -52,6 +76,7 @@ class CacheManager {
         }
     }
 
+    //返回文件名
     private String getFileName(String url) {
         return "test";
     }
