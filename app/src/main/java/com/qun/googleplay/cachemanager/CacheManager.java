@@ -7,6 +7,8 @@ import com.qun.googleplay.global.GooglePlay;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * 缓存管理类
@@ -78,6 +80,22 @@ class CacheManager {
 
     //返回文件名
     private String getFileName(String url) {
-        return "test";
+        StringBuffer stringBuffer = new StringBuffer();
+        //MD5
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            //加密
+            messageDigest.update(url.getBytes());
+            //得到加密后的数据
+            byte[] bytes = messageDigest.digest();
+            for (int i = 0; i < bytes.length; i++) {
+//                System.out.println(Integer.toHexString(bytes[i] & 0xFF));
+                stringBuffer.append(Integer.toHexString(bytes[i] & 0xFF));
+            }
+            return stringBuffer.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }
