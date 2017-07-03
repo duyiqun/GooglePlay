@@ -27,7 +27,7 @@ public class JsonCacheManager {
          * 1. 去网络请求最新数据
          * 2. 如果没有数据去请求缓存数据
          */
-        String content = NewManager.getInstance().dataGet(url);
+        String content = NetManager.getInstance().dataGet(url);
 
         if (TextUtils.isEmpty(content)) {
             //空

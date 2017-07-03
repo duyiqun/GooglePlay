@@ -5,7 +5,7 @@
     android:id="@+id/activity_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.qun.googleplay.ui.acitvity.MainActivity">
+    tools:context="com.qun.googleplay.ui.activity.MainActivity">
 
     <!--主界面-->
     <LinearLayout

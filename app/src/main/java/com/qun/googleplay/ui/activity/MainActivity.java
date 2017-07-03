@@ -1,4 +1,4 @@
-package com.qun.googleplay.ui.acitvity;
+package com.qun.googleplay.ui.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;

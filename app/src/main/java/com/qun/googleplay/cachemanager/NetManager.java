@@ -11,22 +11,24 @@ import okhttp3.Response;
  * Created by Qun on 2017/5/2.
  */
 
-public class NewManager {
+public class NetManager {
 
-    private static NewManager sNewManager = new NewManager();
+    private static NetManager sNetManager = new NetManager();
 
-    private NewManager() {
+    private NetManager() {
     }
 
-    public static NewManager getInstance() {
-        return sNewManager;
+    public static NetManager getInstance() {
+        return sNetManager;
     }
 
     //根据网络地址返回数据
     public String dataGet(String url) {
         try {
             OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
-            Request request = new Request.Builder().url(url).build();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
             Response response = okHttpClient.newCall(request).execute();
             return response.body().string();
         } catch (IOException e) {
