@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import com.qun.googleplay.utils.GsonUtil;
 
+import java.util.List;
+
 /**
  * 缓存框架
  * Created by Qun on 2017/5/2.
@@ -22,7 +24,7 @@ public class JsonCacheManager {
 
     //用户传入地址跟对应的bean返回一个对象
     //当前的方法在哪里调用ctrl+B
-    public<T> T getDataBean(String url, Class<T> clss) {
+    public <T> T getDataBean(String url, Class<T> clss) {
         /**
          * 1. 去网络请求最新数据
          * 2. 如果没有数据去请求缓存数据
@@ -44,6 +46,33 @@ public class JsonCacheManager {
             return null;
         } else {
             return GsonUtil.parseJsonToBean(content, clss);
+        }
+    }
+
+    //用户传入地址跟对应的bean返回一个对象
+    //当前的方法在哪里调用ctrl+B
+    public <T> List<T> getDataList(String url, Class<T> clss) {
+        /**
+         * 1. 去网络请求最新数据
+         * 2. 如果没有数据去请求缓存数据
+         */
+        String content = NetManager.getInstance().dataGet(url);
+
+        if (TextUtils.isEmpty(content)) {
+            //空
+            //缓存拿数据
+            content = CacheManager.getInstance().getCacheData(url);
+        } else {
+            //非空
+            //缓存数据
+            CacheManager.getInstance().saveCacheData(url, content);
+        }
+
+        //去解析数据
+        if (TextUtils.isEmpty(content)) {
+            return null;
+        } else {
+            return GsonUtil.fromJsonArray(content, clss);
         }
     }
 }

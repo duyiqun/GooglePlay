@@ -65,7 +65,6 @@ public class GsonUtil {
         List<T> lst = null;
         try {
             lst = new ArrayList<T>();
-
             JsonArray array = new JsonParser().parse(json).getAsJsonArray();
             for (final JsonElement elem : array) {
                 lst.add(new Gson().fromJson(elem, clazz));
@@ -74,10 +73,8 @@ public class GsonUtil {
             e.printStackTrace();
             return null;
         }
-
         return lst;
     }
-
 
     /**
      * 把json字符串变成map
@@ -105,8 +102,7 @@ public class GsonUtil {
 		return list;
 	}*/
 
-
-/*	*//**
+    /**
      * 把json字符串变成集合
      * params: new TypeToken<List<yourbean>>(){}.getType(),
      *
@@ -149,7 +145,6 @@ public class GsonUtil {
             e.printStackTrace();
             return "";
         }
-
         return value;
     }
 }
