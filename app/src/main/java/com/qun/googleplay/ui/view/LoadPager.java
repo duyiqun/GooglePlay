@@ -72,6 +72,7 @@ public abstract class LoadPager extends FrameLayout {
         showPager();
     }
 
+    //根据网络数据自动切换ui
     private void showPager() {
         new Thread(new Runnable() {
             @Override
@@ -132,6 +133,7 @@ public abstract class LoadPager extends FrameLayout {
         mErrorView.setVisibility(View.GONE);
         mSuccessView.setVisibility(View.GONE);
 
+        //alt+j--->选中相同的代码
         switch (mLoadState) {
             case LOADING:
                 mLoadView.setVisibility(View.VISIBLE);

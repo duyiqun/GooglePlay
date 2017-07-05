@@ -6,12 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.qun.googleplay.R;
 import com.qun.googleplay.ui.view.LoadPager;
-
-import java.util.ArrayList;
 
 /**
  * Created by Qun on 2017/5/2.
@@ -19,24 +15,29 @@ import java.util.ArrayList;
 
 public abstract class BaseFragment extends Fragment {
 
+    private LoadPager mLoadPager;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        LoadPager loadPager = new LoadPager(getContext()) {
+        //得到数据的方法
+        if (mLoadPager == null) {
+            mLoadPager = new LoadPager(getContext()) {
 
-            //得到数据的方法
-            @Override
-            public Object getNetData() {
-                return getData();
-            }
+                //得到数据的方法
+                @Override
+                public Object getNetData() {
+                    return getData();
+                }
 
-            @Override
-            public View createSuccessView() {
-                return createView();
-            }
-        };
-        return loadPager;
+                @Override
+                public View createSuccessView() {
+                    return createView();
+                }
+            };
+        }
+        return mLoadPager;
     }
 
     //返回一个界面

@@ -22,7 +22,7 @@ public class JsonCacheManager {
 
     //用户传入地址跟对应的bean返回一个对象
     //当前的方法在哪里调用ctrl+B
-    public Object getDataBean(String url, Class clss) {
+    public<T> T getDataBean(String url, Class<T> clss) {
         /**
          * 1. 去网络请求最新数据
          * 2. 如果没有数据去请求缓存数据
