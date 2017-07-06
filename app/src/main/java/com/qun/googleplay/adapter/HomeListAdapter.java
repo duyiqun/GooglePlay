@@ -64,7 +64,7 @@ public class HomeListAdapter extends BaseAdapter {
         }
         //数据绑定(更新)
         viewHolder.bindView(mShowItems.get(position));
-        return convertView;
+        return viewHolder.getView();
     }
 
     class ViewHolder {
@@ -74,19 +74,20 @@ public class HomeListAdapter extends BaseAdapter {
         RatingBar rbHomeStart;
         TextView tvHomeSize;
         TextView tvHomeDesc;
+        View mView;
 
         public ViewHolder() {
 //        public ViewHolder(View view) {
-            View view = View.inflate(GooglePlay.sContext, R.layout.item_home, null);
+            View mView = View.inflate(GooglePlay.sContext, R.layout.item_home, null);
 
             //登记证
-            view.setTag(this);
+            mView.setTag(this);
 
-            ivHomeIcon = (ImageView) view.findViewById(R.id.iv_home_icon);
-            tvHomeTitle = (TextView) view.findViewById(R.id.tv_home_title);
-            rbHomeStart = (RatingBar) view.findViewById(R.id.rb_home_start);
-            tvHomeSize = (TextView) view.findViewById(R.id.tv_home_size);
-            tvHomeDesc = (TextView) view.findViewById(R.id.tv_home_desc);
+            ivHomeIcon = (ImageView) mView.findViewById(R.id.iv_home_icon);
+            tvHomeTitle = (TextView) mView.findViewById(R.id.tv_home_title);
+            rbHomeStart = (RatingBar) mView.findViewById(R.id.rb_home_start);
+            tvHomeSize = (TextView) mView.findViewById(R.id.tv_home_size);
+            tvHomeDesc = (TextView) mView.findViewById(R.id.tv_home_desc);
         }
 
         private void bindView(HomeBean.HomeItem homeItem) {
@@ -96,6 +97,11 @@ public class HomeListAdapter extends BaseAdapter {
             String fileSize = Formatter.formatFileSize(GooglePlay.sContext, homeItem.getSize());
             tvHomeSize.setText(fileSize);
             tvHomeDesc.setText(homeItem.getDes());
+        }
+
+        //返回一个view
+        public View getView() {
+            return mView;
         }
     }
 }
