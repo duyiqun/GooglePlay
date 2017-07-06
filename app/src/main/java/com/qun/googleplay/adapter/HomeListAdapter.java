@@ -10,11 +10,14 @@ import android.widget.TextView;
 
 import com.qun.googleplay.R;
 import com.qun.googleplay.bean.HomeBean;
+import com.qun.googleplay.global.GooglePlay;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 把所有可变的都抽取到viewholder中
+ * 把T类型放到最后去抽取
  * Created by Qun on 2017/7/4.
  */
 
@@ -45,15 +48,17 @@ public class HomeListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = View.inflate(parent.getContext(), R.layout.item_home, null);
-            viewHolder = new ViewHolder(convertView);
+//            convertView = View.inflate(parent.getContext(), R.layout.item_home, null);
+//            viewHolder = new ViewHolder(convertView);
+//            viewHolder = new ViewHolder(View.inflate(parent.getContext(), R.layout.item_home, null));
 //            viewHolder = new ViewHolder();
 //            viewHolder.ivHomeIcon = (ImageView) convertView.findViewById(R.id.iv_home_icon);
 //            viewHolder.tvHomeTitle = (TextView) convertView.findViewById(R.id.tv_home_title);
 //            viewHolder.rbHomeStart = (RatingBar) convertView.findViewById(R.id.rb_home_start);
 //            viewHolder.tvHomeSize = (TextView) convertView.findViewById(R.id.tv_home_size);
 //            viewHolder.tvHomeDesc = (TextView) convertView.findViewById(R.id.tv_home_desc);
-            convertView.setTag(viewHolder);
+//            convertView.setTag(viewHolder);
+            viewHolder = new ViewHolder();
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
@@ -75,7 +80,13 @@ public class HomeListAdapter extends BaseAdapter {
         TextView tvHomeSize;
         TextView tvHomeDesc;
 
-        public ViewHolder(View view) {
+        public ViewHolder() {
+//        public ViewHolder(View view) {
+            View view = View.inflate(GooglePlay.sContext, R.layout.item_home, null);
+
+            //登记证
+            view.setTag(this);
+
             ivHomeIcon = (ImageView) view.findViewById(R.id.iv_home_icon);
             tvHomeTitle = (TextView) view.findViewById(R.id.tv_home_title);
             rbHomeStart = (RatingBar) view.findViewById(R.id.rb_home_start);
