@@ -63,17 +63,8 @@ public class HomeListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         //数据绑定(更新)
-        bindView(viewHolder, mShowItems.get(position));
+        viewHolder.bindView(mShowItems.get(position));
         return convertView;
-    }
-
-    private void bindView( ViewHolder viewHolder, HomeBean.HomeItem homeItem) {
-        viewHolder.tvHomeTitle.setText(homeItem.getName());
-        viewHolder.rbHomeStart.setRating(homeItem.getStars());
-        //格式大小
-        String fileSize = Formatter.formatFileSize(GooglePlay.sContext, homeItem.getSize());
-        viewHolder.tvHomeSize.setText(fileSize);
-        viewHolder.tvHomeDesc.setText(homeItem.getDes());
     }
 
     class ViewHolder {
@@ -96,6 +87,15 @@ public class HomeListAdapter extends BaseAdapter {
             rbHomeStart = (RatingBar) view.findViewById(R.id.rb_home_start);
             tvHomeSize = (TextView) view.findViewById(R.id.tv_home_size);
             tvHomeDesc = (TextView) view.findViewById(R.id.tv_home_desc);
+        }
+
+        private void bindView(HomeBean.HomeItem homeItem) {
+            tvHomeTitle.setText(homeItem.getName());
+            rbHomeStart.setRating(homeItem.getStars());
+            //格式大小
+            String fileSize = Formatter.formatFileSize(GooglePlay.sContext, homeItem.getSize());
+            tvHomeSize.setText(fileSize);
+            tvHomeDesc.setText(homeItem.getDes());
         }
     }
 }
