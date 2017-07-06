@@ -1,16 +1,11 @@
 package com.qun.googleplay.adapter;
 
-import android.text.format.Formatter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
-import com.qun.googleplay.R;
 import com.qun.googleplay.bean.HomeBean;
-import com.qun.googleplay.global.GooglePlay;
+import com.qun.googleplay.viewholder.HomeViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +41,7 @@ public class HomeListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+        HomeViewHolder viewHolder;
         if (convertView == null) {
 //            convertView = View.inflate(parent.getContext(), R.layout.item_home, null);
 //            viewHolder = new ViewHolder(convertView);
@@ -58,50 +53,50 @@ public class HomeListAdapter extends BaseAdapter {
 //            viewHolder.tvHomeSize = (TextView) convertView.findViewById(R.id.tv_home_size);
 //            viewHolder.tvHomeDesc = (TextView) convertView.findViewById(R.id.tv_home_desc);
 //            convertView.setTag(viewHolder);
-            viewHolder = new ViewHolder();
+            viewHolder = new HomeViewHolder();
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (HomeViewHolder) convertView.getTag();
         }
         //数据绑定(更新)
         viewHolder.bindView(mShowItems.get(position));
         return viewHolder.getView();
     }
 
-    class ViewHolder {
-
-        ImageView ivHomeIcon;
-        TextView tvHomeTitle;
-        RatingBar rbHomeStart;
-        TextView tvHomeSize;
-        TextView tvHomeDesc;
-        View mView;
-
-        public ViewHolder() {
-//        public ViewHolder(View view) {
-            View mView = View.inflate(GooglePlay.sContext, R.layout.item_home, null);
-
-            //登记证
-            mView.setTag(this);
-
-            ivHomeIcon = (ImageView) mView.findViewById(R.id.iv_home_icon);
-            tvHomeTitle = (TextView) mView.findViewById(R.id.tv_home_title);
-            rbHomeStart = (RatingBar) mView.findViewById(R.id.rb_home_start);
-            tvHomeSize = (TextView) mView.findViewById(R.id.tv_home_size);
-            tvHomeDesc = (TextView) mView.findViewById(R.id.tv_home_desc);
-        }
-
-        private void bindView(HomeBean.HomeItem homeItem) {
-            tvHomeTitle.setText(homeItem.getName());
-            rbHomeStart.setRating(homeItem.getStars());
-            //格式大小
-            String fileSize = Formatter.formatFileSize(GooglePlay.sContext, homeItem.getSize());
-            tvHomeSize.setText(fileSize);
-            tvHomeDesc.setText(homeItem.getDes());
-        }
-
-        //返回一个view
-        public View getView() {
-            return mView;
-        }
-    }
+//    class ViewHolder {
+//
+//        ImageView ivHomeIcon;
+//        TextView tvHomeTitle;
+//        RatingBar rbHomeStart;
+//        TextView tvHomeSize;
+//        TextView tvHomeDesc;
+//        View mView;
+//
+//        public ViewHolder() {
+////        public ViewHolder(View view) {
+//            View mView = View.inflate(GooglePlay.sContext, R.layout.item_home, null);
+//
+//            //登记证
+//            mView.setTag(this);
+//
+//            ivHomeIcon = (ImageView) mView.findViewById(R.id.iv_home_icon);
+//            tvHomeTitle = (TextView) mView.findViewById(R.id.tv_home_title);
+//            rbHomeStart = (RatingBar) mView.findViewById(R.id.rb_home_start);
+//            tvHomeSize = (TextView) mView.findViewById(R.id.tv_home_size);
+//            tvHomeDesc = (TextView) mView.findViewById(R.id.tv_home_desc);
+//        }
+//
+//        private void bindView(HomeBean.HomeItem homeItem) {
+//            tvHomeTitle.setText(homeItem.getName());
+//            rbHomeStart.setRating(homeItem.getStars());
+//            //格式大小
+//            String fileSize = Formatter.formatFileSize(GooglePlay.sContext, homeItem.getSize());
+//            tvHomeSize.setText(fileSize);
+//            tvHomeDesc.setText(homeItem.getDes());
+//        }
+//
+//        //返回一个view
+//        public View getView() {
+//            return mView;
+//        }
+//    }
 }
