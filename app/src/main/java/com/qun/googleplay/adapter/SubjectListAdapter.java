@@ -51,8 +51,12 @@ public class SubjectListAdapter extends BaseAdapter {
         }
 
         //赋值
-        subjectViewHolder.tvDes.setText(mShowItems.get(position).getDes());
+        bindView(subjectViewHolder, mShowItems.get(position));
         return convertView;
+    }
+
+    private void bindView(SubjectViewHolder subjectViewHolder, SubjectBean subjectBean) {
+        subjectViewHolder.tvDes.setText(subjectBean.getDes());
     }
 
     class SubjectViewHolder {
