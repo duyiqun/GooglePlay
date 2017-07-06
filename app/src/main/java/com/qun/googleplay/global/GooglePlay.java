@@ -10,14 +10,14 @@ import android.os.Handler;
 
 public class GooglePlay extends Application {
 
-    public static Handler mainHandler;
-    public static Context context;
+    public static Handler sMainHandler;
+    public static Context sContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mainHandler = new Handler();
-        context = this;
+        sMainHandler = new Handler();
+        sContext = this;
     }
 }

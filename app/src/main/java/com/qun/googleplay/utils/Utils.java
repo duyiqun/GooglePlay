@@ -16,7 +16,7 @@ public class Utils {
 
     //这个是在主线程去更新ui,在没有上下文的环境,
     public static void runOnUIThread(Runnable runnable) {
-        GooglePlay.mainHandler.post(runnable);
+        GooglePlay.sMainHandler.post(runnable);
     }
 
     //得到字符串数组信息
@@ -27,12 +27,11 @@ public class Utils {
 
     //得到资源管理的类
     public static Resources getResources() {
-        return GooglePlay.context.getResources();
+        return GooglePlay.sContext.getResources();
     }
 
     //在屏幕适配时候使用,让代码中使用dip属性
     public static int getDimens(int resId) {
-
         return getResources().getDimensionPixelSize(resId);
     }
 
@@ -53,7 +52,6 @@ public class Utils {
 
     // 创建一个随机的颜色
     public static int randomColor() {
-
         Random random = new Random();
         int red = random.nextInt(180);
         int blue = random.nextInt(180);

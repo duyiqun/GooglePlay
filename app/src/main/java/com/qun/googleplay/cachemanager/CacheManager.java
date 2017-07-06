@@ -21,7 +21,7 @@ class CacheManager {
     private final String mPath;
 
     private CacheManager() {
-        mPath = Environment.getExternalStorageDirectory().getPath() + File.separator + GooglePlay.context.getPackageName();
+        mPath = Environment.getExternalStorageDirectory().getPath() + File.separator + GooglePlay.sContext.getPackageName();
         //文件夹多级目录应该手动创建
         File pathDir = new File(mPath);
 
