@@ -4,7 +4,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.qun.googleplay.bean.HomeBean;
 import com.qun.googleplay.viewholder.BaseViewHolder;
 
 import java.util.ArrayList;
