@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.qun.googleplay.bean.HomeBean;
-import com.qun.googleplay.viewholder.BaseViewHolder;
+import com.qun.googleplay.viewholder.HomeViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +16,11 @@ import java.util.List;
  * Created by Qun on 2017/7/4.
  */
 
-public abstract class HomeListAdapter extends BaseAdapter {
+public class HomeListAdapter2 extends BaseAdapter {
 
     private List<HomeBean.HomeItem> mShowItems = new ArrayList();
 
-    public HomeListAdapter(List<HomeBean.HomeItem> showItems) {
+    public HomeListAdapter2(List<HomeBean.HomeItem> showItems) {
         mShowItems = showItems;
     }
 
@@ -41,7 +41,7 @@ public abstract class HomeListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        BaseViewHolder viewHolder;
+        HomeViewHolder viewHolder;
         if (convertView == null) {
 //            convertView = View.inflate(parent.getContext(), R.layout.item_home, null);
 //            viewHolder = new ViewHolder(convertView);
@@ -53,17 +53,14 @@ public abstract class HomeListAdapter extends BaseAdapter {
 //            viewHolder.tvHomeSize = (TextView) convertView.findViewById(R.id.tv_home_size);
 //            viewHolder.tvHomeDesc = (TextView) convertView.findViewById(R.id.tv_home_desc);
 //            convertView.setTag(viewHolder);
-            viewHolder = createViewHolder();
+            viewHolder = new HomeViewHolder();
         } else {
-            viewHolder = (BaseViewHolder) convertView.getTag();
+            viewHolder = (HomeViewHolder) convertView.getTag();
         }
         //数据绑定(更新)
         viewHolder.bindView(mShowItems.get(position));
         return viewHolder.getView();
     }
-
-    //子类传入viewHolder
-    public abstract BaseViewHolder createViewHolder();
 
 //    class ViewHolder {
 //

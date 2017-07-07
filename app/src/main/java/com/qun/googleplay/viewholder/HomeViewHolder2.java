@@ -14,25 +14,27 @@ import com.qun.googleplay.global.GooglePlay;
  * Created by Qun on 2017/7/6.
  */
 
-public class HomeViewHolder extends BaseViewHolder<HomeBean.HomeItem> {
+public class HomeViewHolder2 {
 
     ImageView ivHomeIcon;
     TextView tvHomeTitle;
     RatingBar rbHomeStart;
     TextView tvHomeSize;
     TextView tvHomeDesc;
+    View mView;
 
-    @Override
-    public View createItemView() {
-        View view = View.inflate(GooglePlay.sContext, R.layout.item_home, null);
+    public HomeViewHolder2() {
+//        public ViewHolder(View view) {
+        View mView = View.inflate(GooglePlay.sContext, R.layout.item_home, null);
 
-        ivHomeIcon = (ImageView) view.findViewById(R.id.iv_home_icon);
-        tvHomeTitle = (TextView) view.findViewById(R.id.tv_home_title);
-        rbHomeStart = (RatingBar) view.findViewById(R.id.rb_home_start);
-        tvHomeSize = (TextView) view.findViewById(R.id.tv_home_size);
-        tvHomeDesc = (TextView) view.findViewById(R.id.tv_home_desc);
+        //登记证
+        mView.setTag(this);
 
-        return view;
+        ivHomeIcon = (ImageView) mView.findViewById(R.id.iv_home_icon);
+        tvHomeTitle = (TextView) mView.findViewById(R.id.tv_home_title);
+        rbHomeStart = (RatingBar) mView.findViewById(R.id.rb_home_start);
+        tvHomeSize = (TextView) mView.findViewById(R.id.tv_home_size);
+        tvHomeDesc = (TextView) mView.findViewById(R.id.tv_home_desc);
     }
 
     public void bindView(HomeBean.HomeItem homeItem) {
@@ -42,5 +44,10 @@ public class HomeViewHolder extends BaseViewHolder<HomeBean.HomeItem> {
         String fileSize = Formatter.formatFileSize(GooglePlay.sContext, homeItem.getSize());
         tvHomeSize.setText(fileSize);
         tvHomeDesc.setText(homeItem.getDes());
+    }
+
+    //返回一个view
+    public View getView() {
+        return mView;
     }
 }
