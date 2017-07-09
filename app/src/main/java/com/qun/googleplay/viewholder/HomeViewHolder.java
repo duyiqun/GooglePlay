@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.qun.googleplay.R;
 import com.qun.googleplay.bean.HomeBean;
 import com.qun.googleplay.global.GooglePlay;
+import com.qun.googleplay.utils.Uris;
 
 /**
  * Created by Qun on 2017/7/6.
@@ -44,6 +45,6 @@ public class HomeViewHolder extends BaseViewHolder<HomeBean.HomeItem> {
         tvHomeDesc.setText(homeItem.getDes());
 
         //图片设置
-        setNetImage("http://127.0.0.1:8090/image?name=" + homeItem.getIconUrl(), ivHomeIcon);
+        setNetImage(Uris.IMAGE_HOST + homeItem.getIconUrl(), ivHomeIcon);
     }
 }

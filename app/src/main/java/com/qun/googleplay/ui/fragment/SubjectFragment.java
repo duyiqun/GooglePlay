@@ -7,6 +7,7 @@ import com.qun.googleplay.R;
 import com.qun.googleplay.adapter.SubjectListAdapter;
 import com.qun.googleplay.bean.SubjectBean;
 import com.qun.googleplay.cachemanager.JsonCacheManager;
+import com.qun.googleplay.utils.Uris;
 import com.qun.googleplay.utils.Utils;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class SubjectFragment extends BaseFragment {
     @Override
     public Object getData() {
         //请求数据
-        List<SubjectBean> subjectBeanList = JsonCacheManager.getInstance().getDataList("http://127.0.0.1:8090/subject?index=0", SubjectBean.class);
+        List<SubjectBean> subjectBeanList = JsonCacheManager.getInstance().getDataList(Uris.SUBJECT_ADDRESS, SubjectBean.class);
         mShowItems.addAll(subjectBeanList);
 
         //更新ui

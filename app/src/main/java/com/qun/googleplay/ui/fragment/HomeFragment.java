@@ -7,6 +7,7 @@ import com.qun.googleplay.R;
 import com.qun.googleplay.adapter.HomeListAdapter;
 import com.qun.googleplay.bean.HomeBean;
 import com.qun.googleplay.cachemanager.JsonCacheManager;
+import com.qun.googleplay.utils.Uris;
 import com.qun.googleplay.utils.Utils;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public Object getData() {
         //获取数据
-        final HomeBean homeBean = JsonCacheManager.getInstance().getDataBean("http://127.0.0.1:8090/home?index=0", HomeBean.class);
+        final HomeBean homeBean = JsonCacheManager.getInstance().getDataBean(Uris.HOME_ADDRESS, HomeBean.class);
 
         mShowItems.addAll(homeBean.getList());
 
