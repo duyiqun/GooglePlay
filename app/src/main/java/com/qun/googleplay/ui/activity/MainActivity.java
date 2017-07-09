@@ -1,5 +1,6 @@
 package com.qun.googleplay.ui.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -105,10 +106,22 @@ public class MainActivity extends AppCompatActivity {
         mShowItems.add(new FragmentInfo(new HomeFragment(), titles[3]));
         mShowItems.add(new FragmentInfo(new HomeFragment(), titles[4]));
 
-        //2. 初始化viewpager
+        //2.初始化viewpager
         mVpMainShowLayout.setAdapter(new MainShowAdapter(getSupportFragmentManager(), mShowItems));
 
         //1.页签与viewpager绑定
         mTabMainTitle.setupWithViewPager(mVpMainShowLayout);
+
+        //3.设置tablayout模式
+        mTabMainTitle.setTabMode(TabLayout.MODE_FIXED);//均分模式
+//        mTabMainTitle.setTabMode(TabLayout.MODE_SCROLLABLE);//滚动模式
+
+        //4.设置字体颜色
+        int normalColor = Color.parseColor("#8C8C8C");
+        int selectedColor = Color.parseColor(getResources().getString(R.string.blue));
+        mTabMainTitle.setTabTextColors(normalColor, selectedColor);
+
+        //5.设置指示器的颜色
+        mTabMainTitle.setSelectedTabIndicatorColor(selectedColor);
     }
 }
