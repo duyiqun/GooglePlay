@@ -1,13 +1,10 @@
 package com.qun.googleplay.viewholder;
 
-import android.text.format.Formatter;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.qun.googleplay.R;
-import com.qun.googleplay.bean.HomeBean;
 import com.qun.googleplay.bean.SubjectBean;
 import com.qun.googleplay.global.GooglePlay;
 
@@ -15,7 +12,7 @@ import com.qun.googleplay.global.GooglePlay;
  * Created by Qun on 2017/7/6.
  */
 
-public class SubjectViewHolder extends BaseViewHolder<SubjectBean>{
+public class SubjectViewHolder extends BaseViewHolder<SubjectBean> {
 
     ImageView ivImage;
     TextView tvDes;

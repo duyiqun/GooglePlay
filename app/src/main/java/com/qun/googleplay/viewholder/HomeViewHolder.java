@@ -42,5 +42,8 @@ public class HomeViewHolder extends BaseViewHolder<HomeBean.HomeItem> {
         String fileSize = Formatter.formatFileSize(GooglePlay.sContext, homeItem.getSize());
         tvHomeSize.setText(fileSize);
         tvHomeDesc.setText(homeItem.getDes());
+
+        //图片设置
+        setNetImage("http://127.0.0.1:8090/image?name=" + homeItem.getIconUrl(), ivHomeIcon);
     }
 }
