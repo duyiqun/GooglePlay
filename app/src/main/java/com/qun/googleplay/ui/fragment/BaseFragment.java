@@ -15,7 +15,7 @@ import com.qun.googleplay.ui.view.LoadPager;
 
 public abstract class BaseFragment extends Fragment {
 
-    private LoadPager mLoadPager;
+    public LoadPager mLoadPager;
 
     @Nullable
     @Override

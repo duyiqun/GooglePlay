@@ -73,7 +73,7 @@ public abstract class LoadPager extends FrameLayout {
     }
 
     //根据网络数据自动切换ui
-    private void showPager() {
+    public void showPager() {
         new Thread(new Runnable() {
             @Override
             public void run() {

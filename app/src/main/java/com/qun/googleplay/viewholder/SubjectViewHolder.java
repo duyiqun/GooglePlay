@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.qun.googleplay.R;
 import com.qun.googleplay.bean.SubjectBean;
 import com.qun.googleplay.global.GooglePlay;
+import com.qun.googleplay.utils.Uris;
 
 /**
  * Created by Qun on 2017/7/6.
@@ -29,5 +30,7 @@ public class SubjectViewHolder extends BaseViewHolder<SubjectBean> {
 
     public void bindView(SubjectBean subjectBean) {
         tvDes.setText(subjectBean.getDes());
+        //设置图片
+        setNetImage(Uris.IMAGE_HOST + subjectBean.getUrl(), ivImage);
     }
 }
