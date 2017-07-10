@@ -74,7 +74,38 @@ public class HomeFragment extends BaseFragment {
         //获取数据
         HomeBean homeBean = JsonCacheManager.getInstance().getDataBean(Uris.HOME_ADDRESS + mShowItems.size(), HomeBean.class);
 
-        mShowItems.addAll(homeBean.getList());
+        //这样返回会有问题，前几页成功的，但是后面失败了
+//        if (homeBean == null) {
+//            return null;
+//        }
+
+        /**
+         * 如果当前的总集合个数等于0，当前的数据为空，说明失败的
+         *
+         * 当前的总集合个数等于0，当前的数据不为空，说明成功的
+         *
+         * 当前的总集合个数不会为0，当前的数据为空，说明没有数据
+         *
+         * 当前总集合个数不会为0，当前的数据也不为空，说明成功的
+         */
+
+        if (mShowItems.size() > 0) {
+            if (homeBean != null) {
+                //当前总集合个数不会为0，当前的数据也不为空，说明成功的
+                mShowItems.addAll(homeBean.getList());
+            } else {
+                //当前的总集合个数不会为0，当前的数据为空，说明没有数据
+                ToastUtil.showToast("网络未知错误");
+            }
+        } else {
+            if (homeBean != null) {
+                //当前的总集合个数等于0，当前的数据不为空，说明成功的
+                mShowItems.addAll(homeBean.getList());
+            } else {
+                //如果当前的总集合个数等于0，当前的数据为空，说明失败的
+                return null;
+            }
+        }
 
         System.out.println("当前的集合数：" + mShowItems.size());
 
@@ -87,7 +118,7 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
-        return "";
+        return mShowItems;
     }
 
     @Override
