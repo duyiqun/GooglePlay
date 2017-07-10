@@ -1,6 +1,5 @@
 package com.qun.googleplay.ui.fragment;
 
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.ListView;
 
@@ -67,12 +66,17 @@ public class HomeFragment extends BaseFragment {
     //给个数据
     @Override
     public Object getData() {
-        //获取数据
-        HomeBean homeBean = JsonCacheManager.getInstance().getDataBean(Uris.HOME_ADDRESS, HomeBean.class);
+        //刷新模式
+        if (mPullRefreshList.getCurrentMode() == PullToRefreshBase.Mode.PULL_FROM_START) {//当前下拉刷新
+            mShowItems.clear();
+        }
 
-        SystemClock.sleep(2000);
+        //获取数据
+        HomeBean homeBean = JsonCacheManager.getInstance().getDataBean(Uris.HOME_ADDRESS + mShowItems.size(), HomeBean.class);
 
         mShowItems.addAll(homeBean.getList());
+
+        System.out.println("当前的集合数：" + mShowItems.size());
 
         //更新数据
         Utils.runOnUIThread(new Runnable() {
