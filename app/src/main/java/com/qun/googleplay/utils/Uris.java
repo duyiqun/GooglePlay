@@ -17,4 +17,7 @@ public class Uris {
 
     //图片地址
     public static final String IMAGE_HOST = HOST_ADDRESS + "/image?name=";
+
+    //关键字
+    public static final String RECOMMEND_ADDRESS = HOST_ADDRESS + "/recommend?index=0";
 }
