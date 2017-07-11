@@ -58,7 +58,7 @@ public class HomeFragment extends BaseFragment {
                 ToastUtil.showToast("下拉刷新了");
 
                 //重新加载一次数据
-                mLoadPager.showPager();
+                refreshData();
             }
         });
     }

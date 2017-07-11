@@ -55,7 +55,8 @@ public class SubjectFragment extends BaseFragment {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
                 //重新请求数据
-                mLoadPager.showPager();
+//                mLoadPager.showPager();
+                refreshData();
             }
         });
     }

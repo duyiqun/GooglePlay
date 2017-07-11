@@ -15,7 +15,7 @@ import com.qun.googleplay.ui.view.LoadPager;
 
 public abstract class BaseFragment extends Fragment {
 
-    public LoadPager mLoadPager;
+    private LoadPager mLoadPager;
 
     @Nullable
     @Override
@@ -45,4 +45,9 @@ public abstract class BaseFragment extends Fragment {
 
     //返回一个数据
     public abstract Object getData();
+
+    //刷新数据
+    public void refreshData(){
+        mLoadPager.showPager();
+    }
 }
