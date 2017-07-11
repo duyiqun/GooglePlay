@@ -14,6 +14,7 @@ import com.qun.googleplay.R;
 import com.qun.googleplay.adapter.MainShowAdapter;
 import com.qun.googleplay.bean.FragmentInfo;
 import com.qun.googleplay.ui.fragment.HomeFragment;
+import com.qun.googleplay.ui.fragment.RecommendFragment;
 import com.qun.googleplay.ui.fragment.SubjectFragment;
 import com.qun.googleplay.utils.Utils;
 
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         String[] titles = Utils.getStringArray(R.array.tab_names);
         mShowItems.add(new FragmentInfo(new HomeFragment(), titles[0]));
         mShowItems.add(new FragmentInfo(new SubjectFragment(), titles[1]));
-        mShowItems.add(new FragmentInfo(new HomeFragment(), titles[2]));
+        mShowItems.add(new FragmentInfo(new RecommendFragment(), titles[2]));
         mShowItems.add(new FragmentInfo(new HomeFragment(), titles[3]));
         mShowItems.add(new FragmentInfo(new HomeFragment(), titles[4]));
 
