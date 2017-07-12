@@ -12,14 +12,14 @@ import java.util.List;
  * Created by Qun on 2017/7/4.
  */
 
-public class HomeListAdapter extends MyBaseListAdapter<HomeBean.HomeItem> {
+public class HomeListAdapter extends MyBaseAdapter<HomeBean.HomeItem> {
 
     public HomeListAdapter(List<HomeBean.HomeItem> showItems) {
         super(showItems);
     }
 
     @Override
-    public BaseViewHolder createViewHolder() {
+    public BaseViewHolder createViewHolder(int position) {
         return new HomeViewHolder();
     }
 }

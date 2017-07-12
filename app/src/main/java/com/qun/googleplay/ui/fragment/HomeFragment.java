@@ -36,6 +36,7 @@ public class HomeFragment extends BaseFragment {
     protected View createView() {
         View view = View.inflate(getContext(), R.layout.fragment_home, null);
         unbinder = ButterKnife.bind(this, view);
+
         init();
         return view;
     }
@@ -124,6 +125,6 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+//        unbinder.unbind();
     }
 }

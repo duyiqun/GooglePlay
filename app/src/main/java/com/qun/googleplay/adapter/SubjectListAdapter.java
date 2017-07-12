@@ -10,14 +10,14 @@ import java.util.List;
  * Created by Qun on 2017/7/5.
  */
 
-public class SubjectListAdapter extends MyBaseListAdapter<SubjectBean> {
+public class SubjectListAdapter extends MyBaseAdapter<SubjectBean> {
 
     public SubjectListAdapter(List<SubjectBean> showItems) {
         super(showItems);
     }
 
     @Override
-    public BaseViewHolder createViewHolder() {
+    public BaseViewHolder createViewHolder(int position) {
         return new SubjectViewHolder();
     }
 }

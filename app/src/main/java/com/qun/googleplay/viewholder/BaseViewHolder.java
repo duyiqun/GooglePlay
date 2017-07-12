@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
  * Created by Qun on 2017/7/6.
  */
 
+//ctrl+b
 public abstract class BaseViewHolder<T> {
 
     View mView;

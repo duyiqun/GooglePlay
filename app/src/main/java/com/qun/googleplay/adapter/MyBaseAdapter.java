@@ -15,11 +15,11 @@ import java.util.List;
  * Created by Qun on 2017/7/4.
  */
 
-public abstract class MyBaseListAdapter<T> extends BaseAdapter {
+public abstract class MyBaseAdapter<T> extends BaseAdapter {
 
     private List<T> mShowItems = new ArrayList();
 
-    public MyBaseListAdapter(List<T> showItems) {
+    public MyBaseAdapter(List<T> showItems) {
         mShowItems = showItems;
     }
 
@@ -42,7 +42,7 @@ public abstract class MyBaseListAdapter<T> extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         BaseViewHolder<T> viewHolder;
         if (convertView == null) {
-            viewHolder = createViewHolder();
+            viewHolder = createViewHolder(position);
         } else {
             viewHolder = (BaseViewHolder) convertView.getTag();
         }
@@ -52,5 +52,5 @@ public abstract class MyBaseListAdapter<T> extends BaseAdapter {
     }
 
     //子类传入viewHolder
-    public abstract BaseViewHolder createViewHolder();
+    public abstract BaseViewHolder createViewHolder(int position);
 }
