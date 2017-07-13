@@ -1,6 +1,7 @@
 package com.qun.googleplay.ui.fragment;
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -42,6 +43,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     //初始化代码
+    //ctrl+F12查找方法
     private void init() {
         //设置模式
         mPullRefreshList.setMode(PullToRefreshBase.Mode.BOTH);//可以上拉也可以下拉
@@ -60,6 +62,14 @@ public class HomeFragment extends BaseFragment {
 
                 //重新加载一次数据
                 refreshData();
+            }
+        });
+
+        //设置item条目点击事件
+        refreshableView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ToastUtil.showToast("当前的条目数据：" + mShowItems.get(position - 1).getName());
             }
         });
     }
