@@ -23,4 +23,7 @@ public class Uris {
 
     //分类地址
     public static final String CATEFORY_URL = HOST_ADDRESS + "/category?index=0";
+
+    //热门地址
+    public static final String HOT_ADDRESS = HOST_ADDRESS + "/hot?index=0";
 }
