@@ -1,12 +1,14 @@
 package com.qun.googleplay.ui.view;
 
 import android.content.Context;
+import android.os.SystemClock;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.qun.googleplay.R;
@@ -52,6 +54,16 @@ public abstract class LoadPager extends FrameLayout {
         }
         if (mErrorView == null) {
             mErrorView = View.inflate(getContext(), R.layout.page_error, null);
+            Button button = (Button) mErrorView.findViewById(R.id.btn_reload);
+            button.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //重新请求数据
+                    mLoadState = LOADSTATE.LOADING;
+                    changPage();
+                    errorLoad(800);
+                }
+            });
         }
         if (mSuccessView == null) {
             mSuccessView = createSuccessView();
@@ -72,11 +84,20 @@ public abstract class LoadPager extends FrameLayout {
         showPager();
     }
 
+    private void errorLoad(int time) {
+        requestData(time);
+    }
+
     //根据网络数据自动切换ui
     public void showPager() {
+        requestData(0);
+    }
+
+    public void requestData(final int time) {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                SystemClock.sleep(time);
                 //得到对象
                 Object object = getNetData();
                 //检测数据
