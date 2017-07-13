@@ -3,26 +3,30 @@ package com.qun.googleplay.viewholder;
 import android.view.View;
 import android.widget.TextView;
 
-import com.qun.googleplay.bean.HomeBean;
-import com.qun.googleplay.bean.HomeHeadBean;
+import com.qun.googleplay.R;
+import com.qun.googleplay.bean.CategoryHeadBean;
 import com.qun.googleplay.global.GooglePlay;
+
+import butterknife.BindView;
 
 /**
  * Created by Qun on 2017/7/11.
  */
 
-public class HeadViewHolder extends BaseViewHolder<HomeHeadBean> {
+public class HeadViewHolder extends BaseViewHolder<CategoryHeadBean> {
 
-    private TextView mTextView;
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
 
     @Override
     public View createItemView() {
-        mTextView = new TextView(GooglePlay.sContext);
-        return mTextView;
+        View view = View.inflate(GooglePlay.sContext, R.layout.adapter_title, null);
+        return view;
     }
 
     @Override
-    public void bindView(HomeHeadBean homeHeadBean) {
-        mTextView.setText("我是新头");
+    public void bindView(CategoryHeadBean headBean) {
+
+        mTvTitle.setText(headBean.title);
     }
 }

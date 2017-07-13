@@ -125,6 +125,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        //这里注释掉应该是fragment用在fragmenttabhost里的原因
 //        unbinder.unbind();
     }
 }

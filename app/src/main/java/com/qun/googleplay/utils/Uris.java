@@ -20,4 +20,7 @@ public class Uris {
 
     //关键字
     public static final String RECOMMEND_ADDRESS = HOST_ADDRESS + "/recommend?index=0";
+
+    //分类地址
+    public static final String CATEFORY_URL = HOST_ADDRESS + "/category?index=0";
 }

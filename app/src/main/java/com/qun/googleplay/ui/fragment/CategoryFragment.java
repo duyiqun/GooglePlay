@@ -5,9 +5,12 @@ import android.widget.ListView;
 
 import com.qun.googleplay.R;
 import com.qun.googleplay.adapter.CategoryAdapter;
-import com.qun.googleplay.bean.HomeBodyBean;
-import com.qun.googleplay.bean.HomeHeadBean;
+import com.qun.googleplay.bean.CategoryBean;
+import com.qun.googleplay.bean.CategoryHeadBean;
+import com.qun.googleplay.cachemanager.JsonCacheManager;
 import com.qun.googleplay.interfaces.ItemType;
+import com.qun.googleplay.utils.Uris;
+import com.qun.googleplay.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,26 +50,30 @@ public class CategoryFragment extends BaseFragment {
     @Override
     public Object getData() {
 
-        //模拟得到数据
-        mShowItems.add(new HomeHeadBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeHeadBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        mShowItems.add(new HomeBodyBean());
-        return "";
+        List<CategoryBean> categoryBeanList = JsonCacheManager.getInstance().getDataList(Uris.CATEFORY_URL, CategoryBean.class);
+
+        //异常处理
+        if (categoryBeanList == null || categoryBeanList.size() == 0) {
+            return null;
+        }
+
+        for (int i = 0; i < categoryBeanList.size(); i++) {
+            CategoryBean categoryBean = categoryBeanList.get(i);
+            //加入到集合中
+            String title = categoryBean.getTitle();
+
+            mShowItems.add(new CategoryHeadBean(title));
+            mShowItems.addAll(categoryBean.getInfos());
+        }
+
+        //更新数据
+        Utils.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                mCategoryAdapter.notifyDataSetChanged();
+            }
+        });
+        return categoryBeanList;
     }
 
     @Override

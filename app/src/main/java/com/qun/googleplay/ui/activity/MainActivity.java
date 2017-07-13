@@ -15,6 +15,7 @@ import com.qun.googleplay.adapter.MainShowAdapter;
 import com.qun.googleplay.bean.FragmentInfo;
 import com.qun.googleplay.ui.fragment.CategoryFragment;
 import com.qun.googleplay.ui.fragment.HomeFragment;
+import com.qun.googleplay.ui.fragment.HotFragment;
 import com.qun.googleplay.ui.fragment.RecommendFragment;
 import com.qun.googleplay.ui.fragment.SubjectFragment;
 import com.qun.googleplay.utils.Utils;
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         mShowItems.add(new FragmentInfo(new SubjectFragment(), titles[1]));
         mShowItems.add(new FragmentInfo(new RecommendFragment(), titles[2]));
         mShowItems.add(new FragmentInfo(new CategoryFragment(), titles[3]));
-        mShowItems.add(new FragmentInfo(new HomeFragment(), titles[4]));
+        mShowItems.add(new FragmentInfo(new HotFragment(), titles[4]));
 
         //2.初始化viewpager
         mVpMainShowLayout.setAdapter(new MainShowAdapter(getSupportFragmentManager(), mShowItems));
