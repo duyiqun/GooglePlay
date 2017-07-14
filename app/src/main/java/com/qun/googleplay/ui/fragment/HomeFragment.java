@@ -1,6 +1,7 @@
 package com.qun.googleplay.ui.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -75,6 +76,10 @@ public class HomeFragment extends BaseFragment {
                 ToastUtil.showToast("当前的条目数据：" + mShowItems.get(position - 1).getName());
                 Intent intent = new Intent(getContext(), ShowActivity.class);
                 intent.putExtra(Fields.ShowActivity.CLASSNAME, DetailFragment.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("string", "我是字符串");
+                bundle.putInt("int", 1000);
+                intent.putExtra("bundle", bundle);
                 startActivity(intent);
             }
         });
