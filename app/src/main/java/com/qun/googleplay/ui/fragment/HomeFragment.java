@@ -11,6 +11,7 @@ import com.qun.googleplay.adapter.HomeListAdapter;
 import com.qun.googleplay.bean.HomeBean;
 import com.qun.googleplay.cachemanager.JsonCacheManager;
 import com.qun.googleplay.ui.activity.ShowActivity;
+import com.qun.googleplay.utils.Fields;
 import com.qun.googleplay.utils.ToastUtil;
 import com.qun.googleplay.utils.Uris;
 import com.qun.googleplay.utils.Utils;
@@ -73,6 +74,7 @@ public class HomeFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ToastUtil.showToast("当前的条目数据：" + mShowItems.get(position - 1).getName());
                 Intent intent = new Intent(getContext(), ShowActivity.class);
+                intent.putExtra(Fields.ShowActivity.CLASSNAME, DetailFragment.class);
                 startActivity(intent);
             }
         });
