@@ -1,6 +1,5 @@
 package com.qun.googleplay.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,8 +10,6 @@ import com.qun.googleplay.R;
 import com.qun.googleplay.adapter.HomeListAdapter;
 import com.qun.googleplay.bean.HomeBean;
 import com.qun.googleplay.cachemanager.JsonCacheManager;
-import com.qun.googleplay.ui.activity.ShowActivity;
-import com.qun.googleplay.utils.Fields;
 import com.qun.googleplay.utils.ToastUtil;
 import com.qun.googleplay.utils.Uris;
 import com.qun.googleplay.utils.Utils;
@@ -74,16 +71,19 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ToastUtil.showToast("当前的条目数据：" + mShowItems.get(position - 1).getName());
-                Intent intent = new Intent(getContext(), ShowActivity.class);
-                intent.putExtra(Fields.ShowActivity.CLASSNAME, DetailFragment.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("string", "我是字符串");
-                bundle.putInt("int", 1000);
-                intent.putExtra("bundle", bundle);
-                startActivity(intent);
+                bundle.putString("abc", "abc");
+                startFragment(DetailFragment.class, bundle);
             }
         });
     }
+
+//    private void startFragment(Class clss, Bundle bundle) {
+//        Intent intent = new Intent(getContext(), ShowActivity.class);
+//        intent.putExtra(Fields.ShowActivity.CLASSNAME, clss);
+//        intent.putExtra(Fields.ShowActivity.BUNDLE, bundle);
+//        startActivity(intent);
+//    }
 
     //给个数据
     @Override

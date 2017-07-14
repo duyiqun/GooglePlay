@@ -10,5 +10,7 @@ public class Fields {
     public static final class ShowActivity {
         //启动的类名
         public static final String CLASSNAME = "CLASSNAME";
+        //传递的对象
+        public static final String BUNDLE = "BUNDLE";
     }
 }

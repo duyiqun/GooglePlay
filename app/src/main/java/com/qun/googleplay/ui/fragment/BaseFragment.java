@@ -1,5 +1,6 @@
 package com.qun.googleplay.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.qun.googleplay.ui.activity.ShowActivity;
 import com.qun.googleplay.ui.view.LoadPager;
+import com.qun.googleplay.utils.Fields;
 
 /**
  * Created by Qun on 2017/5/2.
@@ -47,7 +50,15 @@ public abstract class BaseFragment extends Fragment {
     public abstract Object getData();
 
     //刷新数据
-    public void refreshData(){
+    public void refreshData() {
         mLoadPager.showPager();
+    }
+
+    //启动fragment
+    public void startFragment(Class clss, Bundle bundle) {
+        Intent intent = new Intent(getContext(), ShowActivity.class);
+        intent.putExtra(Fields.ShowActivity.CLASSNAME, clss);
+        intent.putExtra(Fields.ShowActivity.BUNDLE, bundle);
+        startActivity(intent);
     }
 }

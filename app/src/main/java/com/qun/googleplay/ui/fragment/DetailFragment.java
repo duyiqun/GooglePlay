@@ -26,7 +26,7 @@ public class DetailFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, view);
         //获取对象
         Bundle bundle = getArguments();
-        mTvDetailShow.setText("当前的数据：" + bundle.getInt("int"));
+        mTvDetailShow.setText("当前的数据：" + bundle.getString("abc"));
         return view;
     }
 
@@ -38,6 +38,6 @@ public class DetailFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+//        unbinder.unbind();
     }
 }

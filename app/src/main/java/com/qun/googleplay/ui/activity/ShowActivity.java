@@ -22,7 +22,7 @@ public class ShowActivity extends AppCompatActivity {
         Class<BaseFragment> classname = (Class) getIntent().getSerializableExtra(Fields.ShowActivity.CLASSNAME);
 
         //获取数据
-        Bundle bundleExtra = getIntent().getBundleExtra("bundle");
+        Bundle bundleExtra = getIntent().getBundleExtra(Fields.ShowActivity.BUNDLE);
 
         //显示fragment
 //        getSupportFragmentManager().beginTransaction().replace(R.id.fl_show_layout, new DetailFragment()).commit();
@@ -34,7 +34,7 @@ public class ShowActivity extends AppCompatActivity {
 //            DetailFragment detailFragment = (DetailFragment) clss.newInstance();
 
             BaseFragment baseFragment = classname.newInstance();
-            baseFragment.setArguments(bundleExtra);//设置参数
+            baseFragment.setArguments(bundleExtra);//传递参数
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_show_layout, baseFragment).commit();
         } catch (InstantiationException e) {
