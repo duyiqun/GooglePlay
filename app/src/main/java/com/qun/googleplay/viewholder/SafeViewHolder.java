@@ -9,6 +9,7 @@ import com.qun.googleplay.R;
 import com.qun.googleplay.bean.DetailBean;
 import com.qun.googleplay.global.GooglePlay;
 import com.qun.googleplay.utils.Uris;
+import com.qun.googleplay.utils.Utils;
 
 import java.util.List;
 
@@ -95,6 +96,14 @@ public class SafeViewHolder extends BaseViewHolder<DetailBean> {
             }
         }
 
+        //设置自缩
+//        int top = -Utils.getDimens(R.dimen.dp20);
+//        mLlAppSafeContentLayout.setPadding(0, top, 0, 0);
 
+        //如何得到高度
+        mLlAppSafeContentLayout.measure(0,0);
+        int measuredHeight = mLlAppSafeContentLayout.getMeasuredHeight();
+
+//        int height = mLlAppSafeContentLayout.getHeight();
     }
 }
