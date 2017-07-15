@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import com.qun.googleplay.R;
 import com.qun.googleplay.bean.DetailBean;
 import com.qun.googleplay.global.GooglePlay;
+import com.qun.googleplay.ui.fragment.ShowImagesFragment;
 import com.qun.googleplay.utils.Uris;
 import com.qun.googleplay.utils.Utils;
 
@@ -42,6 +43,14 @@ public class ShowImageViewHolder extends BaseViewHolder<DetailBean> {
             setNetImage(Uris.IMAGE_HOST + image, imageView);
 //            imageView.setImageResource(R.drawable.h12);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            //设置点击事件
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.startFragment(ShowImagesFragment.class, null);
+                }
+            });
 
 //            <ImageView
 //                android:layout_width="90dp"

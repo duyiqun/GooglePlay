@@ -1,9 +1,12 @@
 package com.qun.googleplay.utils;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Bundle;
 
 import com.qun.googleplay.global.GooglePlay;
+import com.qun.googleplay.ui.activity.ShowActivity;
 
 import java.util.Random;
 
@@ -59,5 +62,14 @@ public class Utils {
         System.out.println(red + ":" + blue + ":" + green);
         return Color.rgb(red, green, blue);
         // return 0;
+    }
+
+    //启动fragment
+    public static void startFragment(Class clss, Bundle bundle) {
+        Intent intent = new Intent(GooglePlay.sContext, ShowActivity.class);
+        intent.putExtra(Fields.ShowActivity.CLASSNAME, clss);
+        intent.putExtra(Fields.ShowActivity.BUNDLE, bundle);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        GooglePlay.sContext.startActivity(intent);
     }
 }
