@@ -1,5 +1,6 @@
 package com.qun.googleplay.viewholder;
 
+import android.animation.ValueAnimator;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,7 +10,6 @@ import com.qun.googleplay.R;
 import com.qun.googleplay.bean.DetailBean;
 import com.qun.googleplay.global.GooglePlay;
 import com.qun.googleplay.utils.Uris;
-import com.qun.googleplay.utils.Utils;
 
 import java.util.List;
 
@@ -51,6 +51,9 @@ public class SafeViewHolder extends BaseViewHolder<DetailBean> {
     LinearLayout mLlAppSafeContentLayout;
     @BindView(R.id.ll_safe_root_layout)
     LinearLayout mLlSafeRootLayout;
+
+    //当前的条目状态
+    private boolean isOpen = false;//默认收缩的
 
     @Override
     public View createItemView() {
@@ -96,14 +99,52 @@ public class SafeViewHolder extends BaseViewHolder<DetailBean> {
             }
         }
 
-        //设置自缩
+        //如何得到高度
+        mLlAppSafeContentLayout.measure(0, 0);
+        final int measuredHeight = mLlAppSafeContentLayout.getMeasuredHeight();
+
+        //设置收缩
+        mLlAppSafeContentLayout.setPadding(0, -measuredHeight, 0, 0);
+
+        //点击事件
+        mLlSafeRootLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //设置自缩
 //        int top = -Utils.getDimens(R.dimen.dp20);
 //        mLlAppSafeContentLayout.setPadding(0, top, 0, 0);
 
-        //如何得到高度
-        mLlAppSafeContentLayout.measure(0,0);
-        int measuredHeight = mLlAppSafeContentLayout.getMeasuredHeight();
-
 //        int height = mLlAppSafeContentLayout.getHeight();
+
+                //动画控件
+                ValueAnimator valueAnimator = new ValueAnimator();
+
+                //当前的状态
+                if (isOpen) {
+                    //打开状态，点击关闭
+                    //0到-高度
+                    valueAnimator.setIntValues(0, -measuredHeight);//变化的值
+                } else {
+                    //关闭状态，点击打开
+                    //-高度到0
+                    valueAnimator.setIntValues(-measuredHeight, 0);//变化的值
+                }
+                isOpen = !isOpen;
+
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {//更新的值
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        int animatedValue = (int) animation.getAnimatedValue();
+                        //更改它的padding值
+                        mLlAppSafeContentLayout.setPadding(0, animatedValue, 0, 0);
+                    }
+                });
+
+                //设置时间
+                valueAnimator.setDuration(1000);
+                //开启
+                valueAnimator.start();
+            }
+        });
     }
 }
