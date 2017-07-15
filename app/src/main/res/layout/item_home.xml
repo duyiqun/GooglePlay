@@ -37,7 +37,7 @@
                         android:id="@+id/tv_home_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="有元网"
+                        android:text="有缘网"
                         android:textStyle="bold"/>
 
                     <!--星星isIndicator指示器-->
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="产品介绍:有源网是你们理想的地方........我是搞乱的"/>
+                android:text="产品介绍:有缘网是你们理想的地方........我是搞乱的"/>
 
         </LinearLayout>
 

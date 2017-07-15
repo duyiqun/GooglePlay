@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="#515151"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    tools:showIn="@layout/activity_detail">
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/detail_btn_pressed"
+        android:text="收藏"
+        android:textColor="#FFF"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="1">
+
+        <ProgressBar
+            android:id="@+id/pb_bottom_progress"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:progress="90"
+            android:progressDrawable="@drawable/progress_down_bg"/>
+
+        <Button
+            android:id="@+id/bt_bottom_down"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/download_progress"
+            android:text="下载"
+            android:textColor="#FFF"/>
+
+    </FrameLayout>
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/detail_btn_pressed"
+        android:text="分享"
+        android:textColor="#FFF"/>
+
+</LinearLayout>

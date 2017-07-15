@@ -16,17 +16,17 @@ import butterknife.Unbinder;
 
 public class DetailFragment extends BaseFragment {
 
-    @BindView(R.id.tv_detail_show)
-    TextView mTvDetailShow;
     Unbinder unbinder;
 
     @Override
     protected View createView() {
-        View view = View.inflate(getContext(), R.layout.fragment_detail, null);
+        View view = View.inflate(getContext(), R.layout.activity_detail, null);
         unbinder = ButterKnife.bind(this, view);
+
         //获取对象
-        Bundle bundle = getArguments();
-        mTvDetailShow.setText("当前的数据：" + bundle.getString("abc"));
+//        Bundle bundle = getArguments();
+//        mTvDetailShow.setText("当前的数据：" + bundle.getString("abc"));
+
         return view;
     }
 
