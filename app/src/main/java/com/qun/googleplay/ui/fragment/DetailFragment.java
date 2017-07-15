@@ -9,6 +9,7 @@ import com.qun.googleplay.cachemanager.JsonCacheManager;
 import com.qun.googleplay.utils.Uris;
 import com.qun.googleplay.utils.Utils;
 import com.qun.googleplay.viewholder.SafeViewHolder;
+import com.qun.googleplay.viewholder.ShowImageViewHolder;
 import com.qun.googleplay.viewholder.TitleViewHolder;
 
 import butterknife.BindView;
@@ -26,6 +27,7 @@ public class DetailFragment extends BaseFragment {
     LinearLayout mLlDetailShowLayout;
     private TitleViewHolder mTitleViewHolder;
     private SafeViewHolder mSafeViewHolder;
+    private ShowImageViewHolder mShowImageViewHolder;
 
     @Override
     protected View createView() {
@@ -48,6 +50,9 @@ public class DetailFragment extends BaseFragment {
 
         mSafeViewHolder = new SafeViewHolder();
         mLlDetailShowLayout.addView(mSafeViewHolder.getView());
+
+        mShowImageViewHolder = new ShowImageViewHolder();
+        mLlDetailShowLayout.addView(mShowImageViewHolder.getView());
     }
 
     @Override
@@ -62,6 +67,7 @@ public class DetailFragment extends BaseFragment {
             public void run() {
                 mTitleViewHolder.bindView(detailBean);
                 mSafeViewHolder.bindView(detailBean);
+                mShowImageViewHolder.bindView(detailBean);
             }
         });
 
