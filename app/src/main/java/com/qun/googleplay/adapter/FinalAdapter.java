@@ -3,6 +3,7 @@ package com.qun.googleplay.adapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.qun.googleplay.interfaces.ItemType;
 
@@ -16,10 +17,10 @@ import java.util.List;
 
 public class FinalAdapter extends BaseAdapter {
 
-    private List<ItemType> mShowItems = new ArrayList<>();
+    private List<? extends ItemType> mShowItems = new ArrayList<>();
     private int mItemLayout;
 
-    public FinalAdapter(List<ItemType> showItems, int itemLayout, AdapterListener adapterListener) {
+    public FinalAdapter(List<? extends ItemType> showItems, int itemLayout, AdapterListener adapterListener) {
         this.mShowItems = showItems;
         this.mItemLayout = itemLayout;
         this.mAdapterListener = adapterListener;
@@ -44,8 +45,8 @@ public class FinalAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         FinalViewHolder finalViewHolder;
         if (convertView == null) {
-            View view = View.inflate(parent.getContext(), mItemLayout, null);
-            finalViewHolder = new FinalViewHolder(view);
+            convertView = View.inflate(parent.getContext(), mItemLayout, null);
+            finalViewHolder = new FinalViewHolder(convertView);
             convertView.setTag(finalViewHolder);
         } else {
             finalViewHolder = (FinalViewHolder) convertView.getTag();
@@ -71,7 +72,7 @@ public class FinalAdapter extends BaseAdapter {
     //4.暴露出去
 
 
-    class FinalViewHolder {
+    public class FinalViewHolder {
 
 //        ImageView ivHomeIcon;
 //        TextView tvHomeTitle;
@@ -102,6 +103,11 @@ public class FinalAdapter extends BaseAdapter {
 
             //到这里肯定有view
             return view;
+        }
+
+        //返回一个textView
+        public TextView getTextView(int id){
+            return (TextView) getViewById(id);
         }
     }
 }

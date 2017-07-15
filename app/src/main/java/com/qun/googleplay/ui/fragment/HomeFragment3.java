@@ -4,14 +4,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.qun.googleplay.R;
-import com.qun.googleplay.adapter.FinalAdapter;
+import com.qun.googleplay.adapter.HomeListAdapter;
 import com.qun.googleplay.bean.HomeBean;
 import com.qun.googleplay.cachemanager.JsonCacheManager;
-import com.qun.googleplay.interfaces.ItemType;
 import com.qun.googleplay.utils.Fields;
 import com.qun.googleplay.utils.ToastUtil;
 import com.qun.googleplay.utils.Uris;
@@ -28,13 +26,13 @@ import butterknife.Unbinder;
  * Created by Qun on 2017/5/2.
  */
 
-public class HomeFragment extends BaseFragment implements FinalAdapter.AdapterListener {
+public class HomeFragment3 extends BaseFragment {
 
     Unbinder unbinder;
     @BindView(R.id.pull_refresh_list)
     com.handmark.pulltorefresh.library.PullToRefreshListView mPullRefreshList;
     private List<HomeBean.HomeItem> mShowItems = new ArrayList<>();
-    private FinalAdapter mHomeListAdapter;
+    private HomeListAdapter mHomeListAdapter;
 
     //创建一个界面
     @Override
@@ -52,7 +50,7 @@ public class HomeFragment extends BaseFragment implements FinalAdapter.AdapterLi
         //设置模式
         mPullRefreshList.setMode(PullToRefreshBase.Mode.BOTH);//可以上拉也可以下拉
 
-        mHomeListAdapter = new FinalAdapter(mShowItems, R.layout.item_home, this);
+        mHomeListAdapter = new HomeListAdapter(mShowItems);
 
         //获取listView
         ListView refreshableView = mPullRefreshList.getRefreshableView();
@@ -158,15 +156,5 @@ public class HomeFragment extends BaseFragment implements FinalAdapter.AdapterLi
         super.onDestroyView();
         //这里注释掉应该是fragment用在fragmenttabhost里的原因
 //        unbinder.unbind();
-    }
-
-    //更新数据
-    @Override
-    public void bindView(FinalAdapter.FinalViewHolder finalViewHolder, ItemType itemType, int position) {
-//        TextView title = (TextView) finalViewHolder.getViewById(R.id.tv_home_title);
-        TextView title = finalViewHolder.getTextView(R.id.tv_home_title);
-        HomeBean.HomeItem homeItem = (HomeBean.HomeItem) itemType;
-
-        title.setText(homeItem.getName());
     }
 }

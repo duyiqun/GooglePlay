@@ -1,5 +1,7 @@
 package com.qun.googleplay.bean;
 
+import com.qun.googleplay.interfaces.BodyType;
+
 import java.util.List;
 
 /**
@@ -28,7 +30,7 @@ public class HomeBean {
         this.list = list;
     }
 
-    public static class HomeItem {
+    public static class HomeItem implements BodyType{
         /**
          * id : 1525490
          * name : 有缘网
