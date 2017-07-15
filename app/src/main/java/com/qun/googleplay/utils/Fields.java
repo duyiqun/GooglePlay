@@ -12,6 +12,8 @@ public class Fields {
         public static final String CLASSNAME = "CLASSNAME";
         //传递的对象
         public static final String BUNDLE = "BUNDLE";
+        //标题
+        public static final String TITLE = "TITLE";
     }
 
     //图片类

@@ -1,5 +1,6 @@
 package com.qun.googleplay.ui.fragment;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -9,6 +10,7 @@ import com.qun.googleplay.R;
 import com.qun.googleplay.adapter.HomeListAdapter;
 import com.qun.googleplay.bean.HomeBean;
 import com.qun.googleplay.cachemanager.JsonCacheManager;
+import com.qun.googleplay.utils.Fields;
 import com.qun.googleplay.utils.ToastUtil;
 import com.qun.googleplay.utils.Uris;
 import com.qun.googleplay.utils.Utils;
@@ -74,7 +76,11 @@ public class HomeFragment extends BaseFragment {
 //                bundle.putString("abc", "abc");
 //                startFragment(DetailFragment.class, bundle);
 
-                startFragment(DetailFragment.class, null);
+                Bundle bundle = new Bundle();
+//                bundle.putString(Fields.ShowActivity.TITLE, "应用详情");
+//                startFragment(DetailFragment.class, bundle);
+
+                startFragmentWithTitle(DetailFragment.class, bundle, "应用详情");
             }
         });
     }

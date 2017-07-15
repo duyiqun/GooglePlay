@@ -2,7 +2,10 @@ package com.qun.googleplay.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.MenuItem;
 
 import com.qun.googleplay.R;
 import com.qun.googleplay.ui.fragment.BaseFragment;
@@ -20,6 +23,8 @@ public class ShowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show);
 
         Class<BaseFragment> classname = (Class) getIntent().getSerializableExtra(Fields.ShowActivity.CLASSNAME);
+
+        String title = getIntent().getStringExtra(Fields.ShowActivity.TITLE);
 
         //获取数据
         Bundle bundleExtra = getIntent().getBundleExtra(Fields.ShowActivity.BUNDLE);
@@ -42,5 +47,29 @@ public class ShowActivity extends AppCompatActivity {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
+        if (!TextUtils.isEmpty(title)) {
+            initActionBar(title);
+        }
+    }
+
+    private void initActionBar(String title) {
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
+
+        supportActionBar.setTitle(title);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

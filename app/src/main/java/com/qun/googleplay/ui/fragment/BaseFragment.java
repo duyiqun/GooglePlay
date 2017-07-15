@@ -61,4 +61,13 @@ public abstract class BaseFragment extends Fragment {
         intent.putExtra(Fields.ShowActivity.BUNDLE, bundle);
         startActivity(intent);
     }
+
+    //启动fragment
+    public void startFragmentWithTitle(Class clss, Bundle bundle, String title) {
+        Intent intent = new Intent(getContext(), ShowActivity.class);
+        intent.putExtra(Fields.ShowActivity.CLASSNAME, clss);
+        intent.putExtra(Fields.ShowActivity.BUNDLE, bundle);
+        intent.putExtra(Fields.ShowActivity.TITLE, title);
+        startActivity(intent);
+    }
 }
