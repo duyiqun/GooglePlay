@@ -42,7 +42,7 @@
 
                     <!--星星isIndicator指示器-->
                     <RatingBar
-                        android:id="@+id/rb_home_start"
+                        android:id="@+id/rb_home_star"
                         style="@style/Widget.AppCompat.RatingBar"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"

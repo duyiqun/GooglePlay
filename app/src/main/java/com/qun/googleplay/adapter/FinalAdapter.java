@@ -1,5 +1,6 @@
 package com.qun.googleplay.adapter;
 
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,7 +9,6 @@ import android.widget.TextView;
 import com.qun.googleplay.interfaces.ItemType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -91,7 +91,10 @@ public class FinalAdapter extends BaseAdapter {
 //            tvHomeDesc = (TextView) view.findViewById(R.id.tv_home_desc);
         }
 
-        HashMap<Integer, View> mViews = new HashMap<>();
+//        HashMap<Integer, View> mViews = new HashMap<>();
+
+        //性能高一点
+        private SparseArray<View> mViews = new SparseArray<>();
 
         //根据id自动查找控件
         public View getViewById(int id) {
@@ -106,7 +109,7 @@ public class FinalAdapter extends BaseAdapter {
         }
 
         //返回一个textView
-        public TextView getTextView(int id){
+        public TextView getTextView(int id) {
             return (TextView) getViewById(id);
         }
     }

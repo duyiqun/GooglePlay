@@ -18,7 +18,7 @@ public class HomeViewHolder2 {
 
     ImageView ivHomeIcon;
     TextView tvHomeTitle;
-    RatingBar rbHomeStart;
+    RatingBar rbHomeStar;
     TextView tvHomeSize;
     TextView tvHomeDesc;
     View mView;
@@ -32,14 +32,14 @@ public class HomeViewHolder2 {
 
         ivHomeIcon = (ImageView) mView.findViewById(R.id.iv_home_icon);
         tvHomeTitle = (TextView) mView.findViewById(R.id.tv_home_title);
-        rbHomeStart = (RatingBar) mView.findViewById(R.id.rb_home_start);
+        rbHomeStar = (RatingBar) mView.findViewById(R.id.rb_home_star);
         tvHomeSize = (TextView) mView.findViewById(R.id.tv_home_size);
         tvHomeDesc = (TextView) mView.findViewById(R.id.tv_home_desc);
     }
 
     public void bindView(HomeBean.HomeItem homeItem) {
         tvHomeTitle.setText(homeItem.getName());
-        rbHomeStart.setRating(homeItem.getStars());
+        rbHomeStar.setRating(homeItem.getStars());
         //格式大小
         String fileSize = Formatter.formatFileSize(GooglePlay.sContext, homeItem.getSize());
         tvHomeSize.setText(fileSize);

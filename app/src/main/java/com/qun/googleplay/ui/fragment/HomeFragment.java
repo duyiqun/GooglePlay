@@ -1,9 +1,12 @@
 package com.qun.googleplay.ui.fragment;
 
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -11,6 +14,7 @@ import com.qun.googleplay.R;
 import com.qun.googleplay.adapter.FinalAdapter;
 import com.qun.googleplay.bean.HomeBean;
 import com.qun.googleplay.cachemanager.JsonCacheManager;
+import com.qun.googleplay.global.GooglePlay;
 import com.qun.googleplay.interfaces.ItemType;
 import com.qun.googleplay.utils.Fields;
 import com.qun.googleplay.utils.ToastUtil;
@@ -168,5 +172,19 @@ public class HomeFragment extends BaseFragment implements FinalAdapter.AdapterLi
         HomeBean.HomeItem homeItem = (HomeBean.HomeItem) itemType;
 
         title.setText(homeItem.getName());
+
+        ImageView ivHomeIcon = (ImageView) finalViewHolder.getViewById(R.id.iv_home_icon);
+        RatingBar rbHomeStar = (RatingBar) finalViewHolder.getViewById(R.id.rb_home_star);
+        TextView tvHomeSize = (TextView) finalViewHolder.getViewById(R.id.tv_home_size);
+        TextView tvHomeDesc = (TextView) finalViewHolder.getViewById(R.id.tv_home_desc);
+
+        rbHomeStar.setRating(homeItem.getStars());
+        //格式大小
+        String fileSize = Formatter.formatFileSize(GooglePlay.sContext, homeItem.getSize());
+        tvHomeSize.setText(fileSize);
+        tvHomeDesc.setText(homeItem.getDes());
+
+        //图片设置
+        Utils.setNetImage(Uris.IMAGE_HOST + homeItem.getIconUrl(), ivHomeIcon);
     }
 }

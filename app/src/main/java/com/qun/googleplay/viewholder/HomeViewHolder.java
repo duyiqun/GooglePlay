@@ -19,7 +19,7 @@ public class HomeViewHolder extends BaseViewHolder<HomeBean.HomeItem> {
 
     ImageView ivHomeIcon;
     TextView tvHomeTitle;
-    RatingBar rbHomeStart;
+    RatingBar rbHomeStar;
     TextView tvHomeSize;
     TextView tvHomeDesc;
 
@@ -29,7 +29,7 @@ public class HomeViewHolder extends BaseViewHolder<HomeBean.HomeItem> {
 
         ivHomeIcon = (ImageView) view.findViewById(R.id.iv_home_icon);
         tvHomeTitle = (TextView) view.findViewById(R.id.tv_home_title);
-        rbHomeStart = (RatingBar) view.findViewById(R.id.rb_home_start);
+        rbHomeStar = (RatingBar) view.findViewById(R.id.rb_home_star);
         tvHomeSize = (TextView) view.findViewById(R.id.tv_home_size);
         tvHomeDesc = (TextView) view.findViewById(R.id.tv_home_desc);
 
@@ -38,7 +38,7 @@ public class HomeViewHolder extends BaseViewHolder<HomeBean.HomeItem> {
 
     public void bindView(HomeBean.HomeItem homeItem) {
         tvHomeTitle.setText(homeItem.getName());
-        rbHomeStart.setRating(homeItem.getStars());
+        rbHomeStar.setRating(homeItem.getStars());
         //格式大小
         String fileSize = Formatter.formatFileSize(GooglePlay.sContext, homeItem.getSize());
         tvHomeSize.setText(fileSize);
