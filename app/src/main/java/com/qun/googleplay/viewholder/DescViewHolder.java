@@ -1,6 +1,8 @@
 package com.qun.googleplay.viewholder;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -99,11 +101,34 @@ public class DescViewHolder extends BaseViewHolder<DetailBean> {
                         mTvAppDesc.setHeight(animatedValue);
 
                         //在做动画的那一刻直接滚动到底
-                        mScrollView.smoothScrollTo(0, 1024);
+                        mScrollView.smoothScrollTo(0, 10000);
                     }
                 });
                 valueAnimator.setDuration(1000);
+                valueAnimator.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        mLlDescRootLayout.setEnabled(false);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mLlDescRootLayout.setEnabled(true);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
                 valueAnimator.start();
+
+                ViewCompat.animate(mIvDescArrow).rotationBy(180).setDuration(1000).start();
             }
         });
     }
