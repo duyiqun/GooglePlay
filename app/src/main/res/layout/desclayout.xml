@@ -40,7 +40,7 @@
             android:id="@+id/tv_app_desc_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="有元网"
+            android:text="有缘网"
             android:textStyle="bold"/>
 
         <ImageView

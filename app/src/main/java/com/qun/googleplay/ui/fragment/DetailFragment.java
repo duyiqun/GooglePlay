@@ -8,6 +8,7 @@ import com.qun.googleplay.bean.DetailBean;
 import com.qun.googleplay.cachemanager.JsonCacheManager;
 import com.qun.googleplay.utils.Uris;
 import com.qun.googleplay.utils.Utils;
+import com.qun.googleplay.viewholder.DescViewHolder;
 import com.qun.googleplay.viewholder.SafeViewHolder;
 import com.qun.googleplay.viewholder.ShowImageViewHolder;
 import com.qun.googleplay.viewholder.TitleViewHolder;
@@ -28,6 +29,7 @@ public class DetailFragment extends BaseFragment {
     private TitleViewHolder mTitleViewHolder;
     private SafeViewHolder mSafeViewHolder;
     private ShowImageViewHolder mShowImageViewHolder;
+    private DescViewHolder mDescViewHolder;
 
     @Override
     protected View createView() {
@@ -53,12 +55,15 @@ public class DetailFragment extends BaseFragment {
 
         mShowImageViewHolder = new ShowImageViewHolder();
         mLlDetailShowLayout.addView(mShowImageViewHolder.getView());
+
+        mDescViewHolder = new DescViewHolder();
+        mLlDetailShowLayout.addView(mDescViewHolder.getView());
     }
 
     @Override
     public Object getData() {
         final DetailBean detailBean = JsonCacheManager.getInstance().getDataBean(Uris.DETAIL_ADDRESS + "com.youyuan.yyhl", DetailBean.class);
-        if(detailBean==null){
+        if (detailBean == null) {
             return null;
         }
 
@@ -68,6 +73,7 @@ public class DetailFragment extends BaseFragment {
                 mTitleViewHolder.bindView(detailBean);
                 mSafeViewHolder.bindView(detailBean);
                 mShowImageViewHolder.bindView(detailBean);
+                mDescViewHolder.bindView(detailBean);
             }
         });
 
