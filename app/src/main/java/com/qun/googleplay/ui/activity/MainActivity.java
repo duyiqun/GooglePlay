@@ -3,6 +3,7 @@ package com.qun.googleplay.ui.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         initActionbar();
         init();
+
+//        ViewCompat.animate(mTabMainTitle).rotation(45).setDuration(1000).start();
     }
 
     //actionbar初始化永远都这么写

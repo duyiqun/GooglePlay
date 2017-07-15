@@ -1,6 +1,8 @@
 package com.qun.googleplay.viewholder;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -140,10 +142,37 @@ public class SafeViewHolder extends BaseViewHolder<DetailBean> {
                     }
                 });
 
+                //动画监听
+                valueAnimator.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        mLlSafeRootLayout.setEnabled(false);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mLlSafeRootLayout.setEnabled(true);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+
                 //设置时间
                 valueAnimator.setDuration(1000);
                 //开启
                 valueAnimator.start();
+
+                //做一个箭头的动画
+                //rotationBy是在以前的动画基础上再做动画
+                ViewCompat.animate(mIvSafeArrow).rotationBy(180).setDuration(1000).start();
             }
         });
     }

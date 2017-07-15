@@ -1,7 +1,9 @@
 package com.qun.googleplay.adapter;
 
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.BaseAdapter;
 
 import com.qun.googleplay.viewholder.BaseViewHolder;
@@ -48,7 +50,22 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
         }
         //数据绑定(更新)
         viewHolder.bindView(mShowItems.get(position));
-        return viewHolder.getView();
+
+        View view = viewHolder.getView();
+        //缩放
+        view.setScaleX(.6f);
+        view.setScaleY(.6f);
+
+        //旋转
+        if (position % 2 == 0) {
+            view.setRotation(90f);
+        } else {
+            view.setRotation(-90f);
+        }
+
+        //全新的动画
+        ViewCompat.animate(view).scaleX(1.0f).scaleY(1.0f).rotation(0).setDuration(500).setInterpolator(new OvershootInterpolator()).start();
+        return view;
     }
 
     //子类传入viewHolder
