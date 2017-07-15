@@ -6,6 +6,8 @@ package com.qun.googleplay.utils;
  */
 
 public class Fields {
+    public static final String PACKAGENAME = "PACKAGENAME";
+
     //当前的字段全是showactivity
     public static final class ShowActivity {
         //启动的类名

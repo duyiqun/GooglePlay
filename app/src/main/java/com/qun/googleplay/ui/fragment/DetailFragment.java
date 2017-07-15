@@ -1,5 +1,6 @@
 package com.qun.googleplay.ui.fragment;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -7,6 +8,7 @@ import android.widget.ScrollView;
 import com.qun.googleplay.R;
 import com.qun.googleplay.bean.DetailBean;
 import com.qun.googleplay.cachemanager.JsonCacheManager;
+import com.qun.googleplay.utils.Fields;
 import com.qun.googleplay.utils.Uris;
 import com.qun.googleplay.utils.Utils;
 import com.qun.googleplay.viewholder.DescViewHolder;
@@ -33,6 +35,8 @@ public class DetailFragment extends BaseFragment {
     private SafeViewHolder mSafeViewHolder;
     private ShowImageViewHolder mShowImageViewHolder;
     private DescViewHolder mDescViewHolder;
+    //包名
+    private String mPackname;
 
     @Override
     protected View createView() {
@@ -42,6 +46,9 @@ public class DetailFragment extends BaseFragment {
         //获取对象
 //        Bundle bundle = getArguments();
 //        mTvDetailShow.setText("当前的数据：" + bundle.getString("abc"));
+
+        Bundle bundle = getArguments();
+        mPackname = bundle.getString(Fields.PACKAGENAME);
 
         init();
 
@@ -67,7 +74,7 @@ public class DetailFragment extends BaseFragment {
 
     @Override
     public Object getData() {
-        final DetailBean detailBean = JsonCacheManager.getInstance().getDataBean(Uris.DETAIL_ADDRESS + "com.youyuan.yyhl", DetailBean.class);
+        final DetailBean detailBean = JsonCacheManager.getInstance().getDataBean(Uris.DETAIL_ADDRESS + mPackname, DetailBean.class);
         if (detailBean == null) {
             return null;
         }

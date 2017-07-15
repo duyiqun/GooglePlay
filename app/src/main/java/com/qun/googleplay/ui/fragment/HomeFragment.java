@@ -79,6 +79,7 @@ public class HomeFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
 //                bundle.putString(Fields.ShowActivity.TITLE, "应用详情");
 //                startFragment(DetailFragment.class, bundle);
+                bundle.putString(Fields.PACKAGENAME, mShowItems.get(position - 1).getPackageName());
 
                 startFragmentWithTitle(DetailFragment.class, bundle, "应用详情");
             }
