@@ -2,6 +2,7 @@ package com.qun.googleplay.ui.fragment;
 
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.qun.googleplay.R;
 import com.qun.googleplay.bean.DetailBean;
@@ -26,6 +27,8 @@ public class DetailFragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.ll_detail_show_layout)
     LinearLayout mLlDetailShowLayout;
+    @BindView(R.id.sv_detail_scroll_layout)
+    ScrollView mSvDetailScrollLayout;
     private TitleViewHolder mTitleViewHolder;
     private SafeViewHolder mSafeViewHolder;
     private ShowImageViewHolder mShowImageViewHolder;
@@ -57,6 +60,8 @@ public class DetailFragment extends BaseFragment {
         mLlDetailShowLayout.addView(mShowImageViewHolder.getView());
 
         mDescViewHolder = new DescViewHolder();
+        //设置scrollView
+        mDescViewHolder.setScrollView(mSvDetailScrollLayout);
         mLlDetailShowLayout.addView(mDescViewHolder.getView());
     }
 
