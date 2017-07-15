@@ -36,4 +36,5 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile files('libs/universal-image-loader-1.9.5.jar')
     compile project(':pulltorefresh')
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
 }

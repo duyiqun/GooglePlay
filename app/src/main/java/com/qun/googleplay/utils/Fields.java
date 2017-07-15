@@ -13,4 +13,12 @@ public class Fields {
         //传递的对象
         public static final String BUNDLE = "BUNDLE";
     }
+
+    //图片类
+    public static class ShowImagesFragment {
+        //图片集合
+        public static final String IMAGES = "IMAGES";
+        //当前点击的点
+        public static final String POINT = "POINT";
+    }
 }

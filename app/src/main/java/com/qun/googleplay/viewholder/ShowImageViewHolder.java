@@ -1,5 +1,6 @@
 package com.qun.googleplay.viewholder;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -8,10 +9,11 @@ import com.qun.googleplay.R;
 import com.qun.googleplay.bean.DetailBean;
 import com.qun.googleplay.global.GooglePlay;
 import com.qun.googleplay.ui.fragment.ShowImagesFragment;
+import com.qun.googleplay.utils.Fields;
 import com.qun.googleplay.utils.Uris;
 import com.qun.googleplay.utils.Utils;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -32,23 +34,27 @@ public class ShowImageViewHolder extends BaseViewHolder<DetailBean> {
 
     @Override
     public void bindView(DetailBean detailBean) {
-        List<String> images = detailBean.getScreen();
+        final ArrayList<String> images = (ArrayList<String>) detailBean.getScreen();
 
-        for (String image : images) {
+        for (int i = 0; i < images.size(); i++) {
             ImageView imageView = new ImageView(GooglePlay.sContext);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Utils.getDimens(R.dimen.dp90), Utils.getDimens(R.dimen.dp150));
             params.setMargins(Utils.getDimens(R.dimen.dp10), 0, 0, 0);
             imageView.setLayoutParams(params);
 
-            setNetImage(Uris.IMAGE_HOST + image, imageView);
+            setNetImage(Uris.IMAGE_HOST + images.get(i), imageView);
 //            imageView.setImageResource(R.drawable.h12);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
             //设置点击事件
+            final int finalI = i;
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Utils.startFragment(ShowImagesFragment.class, null);
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList(Fields.ShowImagesFragment.IMAGES, images);
+                    bundle.putInt(Fields.ShowImagesFragment.POINT, finalI);
+                    Utils.startFragment(ShowImagesFragment.class, bundle);
                 }
             });
 
