@@ -17,17 +17,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!--头部布局-->
-            <include layout="@layout/titlelayout"/>
+            <!--&lt;!&ndash;头部布局&ndash;&gt;-->
+            <!--<include layout="@layout/titlelayout"/>-->
 
-            <!--安全布局-->
-            <include layout="@layout/safelayout"/>
+            <!--&lt;!&ndash;安全布局&ndash;&gt;-->
+            <!--<include layout="@layout/safelayout"/>-->
 
-            <!--图片展示-->
-            <include layout="@layout/showimages"/>
+            <!--&lt;!&ndash;图片展示&ndash;&gt;-->
+            <!--<include layout="@layout/showimages"/>-->
 
-            <!--备注-->
-            <include layout="@layout/desclayout"/>
+            <!--&lt;!&ndash;备注&ndash;&gt;-->
+            <!--<include layout="@layout/desclayout"/>-->
 
         </LinearLayout>
 

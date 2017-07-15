@@ -1,6 +1,5 @@
 package com.qun.googleplay.ui.fragment;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -71,9 +70,11 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ToastUtil.showToast("当前的条目数据：" + mShowItems.get(position - 1).getName());
-                Bundle bundle = new Bundle();
-                bundle.putString("abc", "abc");
-                startFragment(DetailFragment.class, bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("abc", "abc");
+//                startFragment(DetailFragment.class, bundle);
+
+                startFragment(DetailFragment.class, null);
             }
         });
     }

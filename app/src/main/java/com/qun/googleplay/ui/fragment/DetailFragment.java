@@ -1,10 +1,14 @@
 package com.qun.googleplay.ui.fragment;
 
-import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.qun.googleplay.R;
+import com.qun.googleplay.bean.DetailBean;
+import com.qun.googleplay.cachemanager.JsonCacheManager;
+import com.qun.googleplay.utils.Uris;
+import com.qun.googleplay.utils.Utils;
+import com.qun.googleplay.viewholder.TitleViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,6 +21,9 @@ import butterknife.Unbinder;
 public class DetailFragment extends BaseFragment {
 
     Unbinder unbinder;
+    @BindView(R.id.ll_detail_show_layout)
+    LinearLayout mLlDetailShowLayout;
+    private TitleViewHolder mTitleViewHolder;
 
     @Override
     protected View createView() {
@@ -27,17 +34,38 @@ public class DetailFragment extends BaseFragment {
 //        Bundle bundle = getArguments();
 //        mTvDetailShow.setText("当前的数据：" + bundle.getString("abc"));
 
+        init();
+
         return view;
+    }
+
+    private void init() {
+
+        mTitleViewHolder = new TitleViewHolder();
+
+        mLlDetailShowLayout.addView(mTitleViewHolder.getView());
     }
 
     @Override
     public Object getData() {
+        final DetailBean detailBean = JsonCacheManager.getInstance().getDataBean(Uris.DETAIL_ADDRESS + "com.youyuan.yyhl", DetailBean.class);
+        if(detailBean==null){
+            return null;
+        }
+
+        Utils.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                mTitleViewHolder.bindView(detailBean);
+            }
+        });
+
         return "";
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        unbinder.unbind();
+        unbinder.unbind();
     }
 }

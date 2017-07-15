@@ -26,4 +26,7 @@ public class Uris {
 
     //热门地址
     public static final String HOT_ADDRESS = HOST_ADDRESS + "/hot?index=0";
+
+    //详情的地址
+    public static final String DETAIL_ADDRESS = HOST_ADDRESS + "/detail?packageName=";
 }
