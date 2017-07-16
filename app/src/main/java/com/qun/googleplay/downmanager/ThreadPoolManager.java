@@ -23,6 +23,13 @@ public class ThreadPoolManager {
             LinkedBlockingQueue<Runnable> blockingQueue = new LinkedBlockingQueue<>(10);//队列
             //new ThreadPoolExecutor.AbortPolicy()这个线程池的策略
             mThreadPoolExecutor = new ThreadPoolExecutor(coreSize, maxSize, keepTime, TimeUnit.MINUTES, blockingQueue, Executors.defaultThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
+
+            /**
+             * 1.开启核心线程数
+             * 2.把后面的线程加入到队列中
+             * 3.判断最大线程数是否满，如果没满，直接开启
+             * 4.如果队列与最大的线程数都满了，就去查看线程池策略
+             */
         }
     }
 
