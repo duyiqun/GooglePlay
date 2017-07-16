@@ -11,6 +11,7 @@ import com.qun.googleplay.cachemanager.JsonCacheManager;
 import com.qun.googleplay.utils.Fields;
 import com.qun.googleplay.utils.Uris;
 import com.qun.googleplay.utils.Utils;
+import com.qun.googleplay.viewholder.BottomViewHolder;
 import com.qun.googleplay.viewholder.DescViewHolder;
 import com.qun.googleplay.viewholder.SafeViewHolder;
 import com.qun.googleplay.viewholder.ShowImageViewHolder;
@@ -31,12 +32,15 @@ public class DetailFragment extends BaseFragment {
     LinearLayout mLlDetailShowLayout;
     @BindView(R.id.sv_detail_scroll_layout)
     ScrollView mSvDetailScrollLayout;
+    @BindView(R.id.ll_detail_root_layout)
+    LinearLayout mLlDetailRootLayout;
     private TitleViewHolder mTitleViewHolder;
     private SafeViewHolder mSafeViewHolder;
     private ShowImageViewHolder mShowImageViewHolder;
     private DescViewHolder mDescViewHolder;
     //包名
     private String mPackname;
+    private BottomViewHolder mBottomViewHolder;
 
     @Override
     protected View createView() {
@@ -70,6 +74,10 @@ public class DetailFragment extends BaseFragment {
         //设置scrollView
         mDescViewHolder.setScrollView(mSvDetailScrollLayout);
         mLlDetailShowLayout.addView(mDescViewHolder.getView());
+
+        //bottom底部封装通过viewholder
+        mBottomViewHolder = new BottomViewHolder();
+        mLlDetailRootLayout.addView(mBottomViewHolder.getView());
     }
 
     @Override
@@ -86,6 +94,7 @@ public class DetailFragment extends BaseFragment {
                 mSafeViewHolder.bindView(detailBean);
                 mShowImageViewHolder.bindView(detailBean);
                 mDescViewHolder.bindView(detailBean);
+                mBottomViewHolder.bindView(detailBean);
             }
         });
 

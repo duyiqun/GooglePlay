@@ -34,6 +34,6 @@
     </ScrollView>
 
     <!--底部-->
-    <include layout="@layout/buttomlayout"/>
+    <!--<include layout="@layout/bottomlayout"/>-->
 
 </LinearLayout>
