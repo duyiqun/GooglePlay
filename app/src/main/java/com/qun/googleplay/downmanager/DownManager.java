@@ -139,7 +139,8 @@ public class DownManager {
 
                 int len = -1;
 
-                while ((len = inputStream.read(buffer)) != -1) {
+                //如果暂停也要停止读写文件
+                while ((len = inputStream.read(buffer)) != -1 || downInfo.downState == PAUSE) {
 
                     //更新进度
                     downInfo.progress += len;
@@ -147,6 +148,18 @@ public class DownManager {
                     mFileOutputStream.write(buffer, 0, len);
 
                     updateProgress(downInfo);
+                }
+
+                //到这里说明下载完了或者暂停
+                //文件的进度跟传过来的文件大小一致
+                if (file.length() == downInfo.fileSize) {
+                    //说明下载完成
+                    downInfo.downState = SUCCESS;
+                    updateState(downInfo);
+                } else {
+                    //暂停
+                    //downInfo.downState = PAUSE;
+                    updateState(downInfo);
                 }
 
             } catch (Exception e) {

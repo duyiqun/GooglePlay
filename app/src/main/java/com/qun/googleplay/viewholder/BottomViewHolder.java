@@ -38,10 +38,10 @@ public class BottomViewHolder extends BaseViewHolder<DetailBean> implements View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_bottom_down:
-                for (int i = 0; i < 20; i++) {
-                    MyRunnable myRunnable = new MyRunnable(i);
-                    ThreadPoolManager.getInstance().addRunnable(myRunnable);
-                }
+//                for (int i = 0; i < 20; i++) {
+//                    MyRunnable myRunnable = new MyRunnable(i);
+//                    ThreadPoolManager.getInstance().addRunnable(myRunnable);
+//                }
                 break;
             default:
                 break;
