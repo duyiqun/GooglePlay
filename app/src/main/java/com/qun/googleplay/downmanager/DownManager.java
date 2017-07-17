@@ -5,9 +5,13 @@ import android.util.SparseArray;
 
 import com.qun.googleplay.bean.DetailBean;
 import com.qun.googleplay.global.GooglePlay;
+import com.qun.googleplay.utils.HttpUtil;
 import com.qun.googleplay.utils.Utils;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +23,7 @@ import java.util.List;
 public class DownManager {
 
     public static String dirPath = Environment.getExternalStorageDirectory().getPath() + File.separator + GooglePlay.sContext.getPackageName() + File.separator + "downs";
+    private FileOutputStream mFileOutputStream;
 
     private DownManager() {
         File dirFile = new File(dirPath);
@@ -95,12 +100,14 @@ public class DownManager {
             //如果文件不一致，说明出错，重新下载，删除以前文件，进度置空
             if (!file.exists()) {
                 //文件不存在
-                downApk();//重新下载
+                String downUrl = "http://127.0.0.1:8090/download?name=" + mDownInfo.downURL;
+                downApk(downUrl, mDownInfo);//重新下载
             } else {
                 //文件存在
                 if (file.length() == mDownInfo.progress) {
                     //断点续传
-                    downApk();
+                    String downUrl = "http://127.0.0.1:8090/download?name=" + mDownInfo.downURL + "&range=" + mDownInfo.progress;
+                    downApk(downUrl, mDownInfo);
                 } else {
                     //出错，重新下载
                     file.delete();
@@ -108,15 +115,84 @@ public class DownManager {
                     mDownInfo.downState = NONE;
                     updateState(mDownInfo);
                     //重新下载
-                    downApk();
+                    String downUrl = "http://127.0.0.1:8090/download?name=" + mDownInfo.downURL;
+                    downApk(downUrl, mDownInfo);
                 }
             }
         }
     }
 
     //下载apk
-    private void downApk() {
+    //downurl是下载的地址
+    private void downApk(String downUrl, DownInfo downInfo) {
+        File file = new File(downInfo.saveURL);
 
+        HttpUtil.HttpResult httpResult = HttpUtil.download(downUrl);
+        if (httpResult != null || httpResult.getInputStream() != null) {
+            try {
+                InputStream inputStream = httpResult.getInputStream();
+
+                //true代表是文件追加
+                mFileOutputStream = new FileOutputStream(file, true);
+
+                byte[] buffer = new byte[1024 * 15];//一般15到25左右
+
+                int len = -1;
+
+                while ((len = inputStream.read(buffer)) != -1) {
+
+                    //更新进度
+                    downInfo.progress += len;
+
+                    mFileOutputStream.write(buffer, 0, len);
+
+                    updateProgress(downInfo);
+                }
+
+            } catch (Exception e) {
+                //打印错误日志
+                e.printStackTrace();
+                //空的，出错了
+                file.delete();
+                downInfo.progress = 0;
+                downInfo.downState = ERROR;//出错
+                //发布状态
+                updateState(downInfo);
+            } finally {
+                //关流
+                if (httpResult != null) {
+                    httpResult.close();
+                }
+
+                if (mFileOutputStream != null) {
+                    try {
+                        mFileOutputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        //这里不用处理
+                    }
+                }
+            }
+        } else {
+            //空的，出错了
+            file.delete();
+            downInfo.progress = 0;
+            downInfo.downState = ERROR;//出错
+            //发布状态
+            updateState(downInfo);
+        }
+    }
+
+    //发布进度
+    private void updateProgress(final DownInfo downInfo) {
+        Utils.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                for (DownManager.onDownListener onDownListener : mOnDownListeners) {
+                    onDownListener.publishProgress(downInfo);
+                }
+            }
+        });
     }
 
     //暂停
@@ -141,7 +217,7 @@ public class DownManager {
     //1.定义接口
     public interface onDownListener {
         //进度
-        void publishProgress();
+        void publishProgress(DownInfo downInfo);
 
         //状态
         void publishState(DownInfo downInfo);
