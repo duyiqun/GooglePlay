@@ -3,6 +3,7 @@ package com.qun.googleplay.downmanager;
 import android.util.SparseArray;
 
 import com.qun.googleplay.bean.DetailBean;
+import com.qun.googleplay.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,48 @@ public class DownManager {
             downInfo = new DownInfo(detailBean);
             mDownInfos.put(detailBean.getId(), downInfo);
         }
+
+        //下载
+        //时刻注意当前的状态
+        //加入线程池当前的状态是等待
+        downInfo.downState = WAIT;//等待
+        //发布
+        updateState(downInfo);
+        DownRunnable downRunnable = new DownRunnable(downInfo);
+        ThreadPoolManager.getInstance().addRunnable(downRunnable);
+    }
+
+    //更新状态
+    //用户主线程更新ui
+    private void updateState(final DownInfo downInfo) {
+        Utils.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                for (DownManager.onDownListener onDownListener : mOnDownListeners) {
+                    onDownListener.publishState(downInfo);
+                }
+            }
+        });
+    }
+
+    //创建下载的线程
+    public class DownRunnable implements Runnable{
+
+        private DownInfo mDownInfo;
+
+        //得到downinfo信息
+        public DownRunnable(DownInfo downInfo) {
+            this.mDownInfo = downInfo;
+        }
+
+        //一运行把状态改成下载
+        @Override
+        public void run() {
+            mDownInfo.downState = DOWN;//下载状态
+            updateState(mDownInfo);//发布状态
+
+
+        }
     }
 
     //暂停
@@ -51,7 +94,7 @@ public class DownManager {
 
     //定义六种状态
     public static final int NONE = 100;//空闲
-    public static final int LOADING = 101;//下载
+    public static final int DOWN = 101;//下载
     public static final int PAUSE = 102;//暂停
     public static final int ERROR = 103;//错误
     public static final int SUCCESS = 104;//成功
@@ -64,7 +107,7 @@ public class DownManager {
         void publishProgress();
 
         //状态
-        void publishState();
+        void publishState(DownInfo downInfo);
     }
 
     //2.接收

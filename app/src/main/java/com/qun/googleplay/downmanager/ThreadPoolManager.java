@@ -1,7 +1,5 @@
 package com.qun.googleplay.downmanager;
 
-import android.os.AsyncTask;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -50,7 +48,7 @@ public class ThreadPoolManager {
     }
 
     //加入线程
-    public void addRunnable(Runnable runnable){
+    public void addRunnable(Runnable runnable) {
         //加入线程池不一定开启线程
         mThreadPoolExecutor.execute(runnable);
     }
