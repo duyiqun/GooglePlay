@@ -1,10 +1,13 @@
 package com.qun.googleplay.downmanager;
 
+import android.os.Environment;
 import android.util.SparseArray;
 
 import com.qun.googleplay.bean.DetailBean;
+import com.qun.googleplay.global.GooglePlay;
 import com.qun.googleplay.utils.Utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +18,13 @@ import java.util.List;
 
 public class DownManager {
 
-    private DownManager() {
+    public static String dirPath = Environment.getExternalStorageDirectory().getPath() + File.separator + GooglePlay.sContext.getPackageName() + File.separator + "downs";
 
+    private DownManager() {
+        File dirFile = new File(dirPath);
+        if (!dirFile.exists()) {
+            dirFile.mkdirs();//创建多级目录
+        }
     }
 
     private static DownManager sDownManager = new DownManager();
@@ -63,7 +71,7 @@ public class DownManager {
     }
 
     //创建下载的线程
-    public class DownRunnable implements Runnable{
+    public class DownRunnable implements Runnable {
 
         private DownInfo mDownInfo;
 
@@ -75,11 +83,40 @@ public class DownManager {
         //一运行把状态改成下载
         @Override
         public void run() {
-            mDownInfo.downState = DOWN;//下载状态
+            mDownInfo.downState = DOWNING;//下载状态
             updateState(mDownInfo);//发布状态
 
-
+            //三种状态，暂停，空闲，出错
+            //判断当前的文件大小
+            File file = new File(mDownInfo.saveURL);
+            //把当前的文件大小跟我们当前的进度进行一个对比
+            //如果当前的文件为空，说明直接下载
+            //如果当前的文件大小与我们进度一致，断点续传
+            //如果文件不一致，说明出错，重新下载，删除以前文件，进度置空
+            if (!file.exists()) {
+                //文件不存在
+                downApk();//重新下载
+            } else {
+                //文件存在
+                if (file.length() == mDownInfo.progress) {
+                    //断点续传
+                    downApk();
+                } else {
+                    //出错，重新下载
+                    file.delete();
+                    mDownInfo.progress = 0;
+                    mDownInfo.downState = NONE;
+                    updateState(mDownInfo);
+                    //重新下载
+                    downApk();
+                }
+            }
         }
+    }
+
+    //下载apk
+    private void downApk() {
+
     }
 
     //暂停
@@ -94,7 +131,7 @@ public class DownManager {
 
     //定义六种状态
     public static final int NONE = 100;//空闲
-    public static final int DOWN = 101;//下载
+    public static final int DOWNING = 101;//下载
     public static final int PAUSE = 102;//暂停
     public static final int ERROR = 103;//错误
     public static final int SUCCESS = 104;//成功

@@ -1,11 +1,6 @@
 package com.qun.googleplay.downmanager;
 
-import android.os.Environment;
-
 import com.qun.googleplay.bean.DetailBean;
-import com.qun.googleplay.global.GooglePlay;
-
-import java.io.File;
 
 /**
  * 下载信息
@@ -31,7 +26,7 @@ public class DownInfo {
         downState = DownManager.NONE;//第一次
         downURL = detailBean.getDownloadUrl();//下载地址
         //sd卡/包名/downs/应用名.apk
-        saveURL = Environment.getExternalStorageDirectory().getPath() + File.separator + GooglePlay.sContext.getPackageName() + File.separator + "downs" + detailBean.getName() + ".apk";
+        saveURL = DownManager.dirPath + detailBean.getName() + ".apk";
         progress = 0;//当前进度为0
         fileSize = detailBean.getSize();//大小
         id = detailBean.getId();//唯一标志
