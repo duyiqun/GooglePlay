@@ -7,7 +7,8 @@ import android.widget.ProgressBar;
 
 import com.qun.googleplay.R;
 import com.qun.googleplay.bean.DetailBean;
-import com.qun.googleplay.downmanager.ThreadPoolManager;
+import com.qun.googleplay.downmanager.DownInfo;
+import com.qun.googleplay.downmanager.DownManager;
 import com.qun.googleplay.global.GooglePlay;
 
 import butterknife.BindView;
@@ -16,12 +17,13 @@ import butterknife.BindView;
  * Created by Qun on 2017/7/16.
  */
 
-public class BottomViewHolder extends BaseViewHolder<DetailBean> implements View.OnClickListener {
+public class BottomViewHolder extends BaseViewHolder<DetailBean> implements View.OnClickListener, DownManager.onDownListener {
 
     @BindView(R.id.pb_bottom_progress)
     ProgressBar mPbBottomProgress;
     @BindView(R.id.bt_bottom_down)
     Button mBtBottomDown;
+    private DetailBean mDetailBean;
 
     @Override
     public View createItemView() {
@@ -31,6 +33,7 @@ public class BottomViewHolder extends BaseViewHolder<DetailBean> implements View
 
     @Override
     public void bindView(DetailBean detailBean) {
+        this.mDetailBean = detailBean;
         mBtBottomDown.setOnClickListener(this);
     }
 
@@ -42,10 +45,25 @@ public class BottomViewHolder extends BaseViewHolder<DetailBean> implements View
 //                    MyRunnable myRunnable = new MyRunnable(i);
 //                    ThreadPoolManager.getInstance().addRunnable(myRunnable);
 //                }
+                //监听
+                DownManager.getInstance().addOnDownListener(this);
+                DownManager.getInstance().down(mDetailBean);
+
                 break;
             default:
                 break;
         }
+    }
+
+    //发布进度
+    @Override
+    public void publishProgress(DownInfo downInfo) {
+        System.out.println("进度" + downInfo.progress);
+    }
+
+    @Override
+    public void publishState(DownInfo downInfo) {
+        System.out.println("当前的状态" + downInfo.downState);
     }
 
     public class MyRunnable implements Runnable {
