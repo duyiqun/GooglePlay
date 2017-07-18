@@ -1,5 +1,7 @@
 package com.qun.googleplay.downmanager;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.SparseArray;
 
@@ -39,6 +41,11 @@ public class DownManager {
 
     //状态存储
     private SparseArray<DownInfo> mDownInfos = new SparseArray<>();
+
+    //得到当前的按钮信息
+    public DownInfo getDownInfo(DetailBean detailBean) {
+        return mDownInfos.get(detailBean.getId());
+    }
 
     //定义方法
     //下载方法
@@ -129,8 +136,9 @@ public class DownManager {
 
         HttpUtil.HttpResult httpResult = HttpUtil.download(downUrl);
         if (httpResult != null || httpResult.getInputStream() != null) {
+
+            InputStream inputStream = httpResult.getInputStream();
             try {
-                InputStream inputStream = httpResult.getInputStream();
 
                 //true代表是文件追加
                 fileOutputStream = new FileOutputStream(file, true);
@@ -140,7 +148,7 @@ public class DownManager {
                 int len = -1;
 
                 //如果暂停也要停止读写文件
-                while ((len = inputStream.read(buffer)) != -1 || downInfo.downState == PAUSE) {
+                while ((len = inputStream.read(buffer)) != -1 && downInfo.downState != PAUSE) {
 
                     //更新进度
                     downInfo.progress += len;
@@ -209,13 +217,31 @@ public class DownManager {
     }
 
     //暂停
-    public void pause() {
+    public void pause(DetailBean detailBean) {
+        System.out.println("当前暂停");
 
+        DownInfo downInfo = mDownInfos.get(detailBean.getId());
+        downInfo.downState = PAUSE;//暂停
     }
 
     //安装
-    public void installApk() {
+    public void installApk(DetailBean detailBean) {
+        DownInfo downInfo = mDownInfos.get(detailBean.getId());
 
+//        <intent-filter>
+//        <action android:name="android.intent.action.VIEW" />
+//        <category android:name="android.intent.category.DEFAULT" />
+//        <data android:scheme="content" />
+//        <data android:scheme="file" />
+//        <data android:mimeType="application/vnd.android.package-archive" />
+//        </intent-filter>
+
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.setDataAndType(Uri.fromFile(new File(downInfo.saveURL)), "application/vnd.android.package-archive");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        GooglePlay.sContext.startActivity(intent);
     }
 
     //定义六种状态

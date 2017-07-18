@@ -36,6 +36,14 @@ public class BottomViewHolder extends BaseViewHolder<DetailBean> implements View
     public void bindView(DetailBean detailBean) {
         this.mDetailBean = detailBean;
         mBtBottomDown.setOnClickListener(this);
+
+        //进来的时候显示正常的状态
+        DownInfo downInfo = DownManager.getInstance().getDownInfo(detailBean);
+        if (downInfo == null) {
+            mBtBottomDown.setText("下载");
+        } else {
+            mBtBottomDown.setText(getStateText(downInfo.downState));
+        }
     }
 
     @Override
@@ -48,8 +56,30 @@ public class BottomViewHolder extends BaseViewHolder<DetailBean> implements View
 //                }
                 //监听
                 DownManager.getInstance().addOnDownListener(this);
-                DownManager.getInstance().down(mDetailBean);
+//                DownManager.getInstance().down(mDetailBean);
 
+                //根据当前的状态去调用不同的方法
+                DownInfo downInfo = DownManager.getInstance().getDownInfo(mDetailBean);
+
+                if (downInfo == null) {
+                    //说明是第一次
+                    DownManager.getInstance().down(mDetailBean);
+                } else {
+                    //六种状态
+                    //空闲，出错，暂停-->调用下载
+                    //等待，下载中-->暂停
+                    //成功-->安装
+                    if (downInfo.downState == DownManager.NONE || downInfo.downState == DownManager.ERROR || downInfo.downState == DownManager.PAUSE) {
+                        DownManager.getInstance().down(mDetailBean);
+                    } else {
+                        //还有三种
+                        if (downInfo.downState == DownManager.SUCCESS) {
+                            DownManager.getInstance().installApk(mDetailBean);
+                        } else {
+                            DownManager.getInstance().pause(mDetailBean);
+                        }
+                    }
+                }
                 break;
             default:
                 break;

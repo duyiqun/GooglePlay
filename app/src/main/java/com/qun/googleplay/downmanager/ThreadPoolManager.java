@@ -23,7 +23,7 @@ public class ThreadPoolManager {
             // the CPU with background work
             int CORE_POOL_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 4));
 
-            int coreSize = 3;//核心线程数，线程池一创建开启多少线程
+            int coreSize = CORE_POOL_SIZE;//核心线程数，线程池一创建开启多少线程
             int maxSize = 10;//最大线程数，最大同时可以运行多少个
             long keepTime = 5;//存活时间
             LinkedBlockingQueue<Runnable> blockingQueue = new LinkedBlockingQueue<>(Integer.MAX_VALUE);//队列
@@ -36,8 +36,6 @@ public class ThreadPoolManager {
              * 3.判断最大线程数是否满，如果没满，直接开启
              * 4.如果队列与最大的线程数都满了，就去查看线程池策略
              */
-
-
         }
     }
 
