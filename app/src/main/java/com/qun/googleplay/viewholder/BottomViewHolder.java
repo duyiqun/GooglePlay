@@ -1,6 +1,7 @@
 package com.qun.googleplay.viewholder;
 
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -59,11 +60,53 @@ public class BottomViewHolder extends BaseViewHolder<DetailBean> implements View
     @Override
     public void publishProgress(DownInfo downInfo) {
         System.out.println("进度" + downInfo.progress);
+        if (downInfo.id == mDetailBean.getId()) {
+            mBtBottomDown.setText((downInfo.progress * 100 / downInfo.fileSize) + "%");
+
+            mPbBottomProgress.setProgress((int) (downInfo.progress * 100 / downInfo.fileSize));
+            //按钮的背景透明
+            mBtBottomDown.setBackgroundResource(0);
+        }
     }
 
     @Override
     public void publishState(DownInfo downInfo) {
-        System.out.println("当前的状态" + downInfo.downState);
+
+        //获取当前页面的数据
+        if (downInfo.id == mDetailBean.getId()) {
+            System.out.println("当前的状态" + downInfo.downState);
+            mBtBottomDown.setText(getStateText(downInfo.downState));
+        }
+    }
+
+    @NonNull
+    private String getStateText(int downState) {
+
+        StringBuffer stringBuffer = new StringBuffer();
+
+        switch (downState) {
+            case DownManager.NONE:
+                stringBuffer.append("空闲");
+                break;
+            case DownManager.DOWNING:
+                stringBuffer.append("下载");
+                break;
+            case DownManager.PAUSE:
+                stringBuffer.append("暂停");
+                break;
+            case DownManager.ERROR:
+                stringBuffer.append("错误");
+                break;
+            case DownManager.SUCCESS:
+                stringBuffer.append("成功");
+                break;
+            case DownManager.WAIT:
+                stringBuffer.append("等待");
+                break;
+            default:
+                break;
+        }
+        return stringBuffer.toString();
     }
 
     public class MyRunnable implements Runnable {

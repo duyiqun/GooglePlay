@@ -23,7 +23,6 @@ import java.util.List;
 public class DownManager {
 
     public static String dirPath = Environment.getExternalStorageDirectory().getPath() + File.separator + GooglePlay.sContext.getPackageName() + File.separator + "downs";
-    private FileOutputStream mFileOutputStream;
 
     private DownManager() {
         File dirFile = new File(dirPath);
@@ -126,6 +125,7 @@ public class DownManager {
     //downurl是下载的地址
     private void downApk(String downUrl, DownInfo downInfo) {
         File file = new File(downInfo.saveURL);
+        FileOutputStream fileOutputStream = null;
 
         HttpUtil.HttpResult httpResult = HttpUtil.download(downUrl);
         if (httpResult != null || httpResult.getInputStream() != null) {
@@ -133,7 +133,7 @@ public class DownManager {
                 InputStream inputStream = httpResult.getInputStream();
 
                 //true代表是文件追加
-                mFileOutputStream = new FileOutputStream(file, true);
+                fileOutputStream = new FileOutputStream(file, true);
 
                 byte[] buffer = new byte[1024 * 15];//一般15到25左右
 
@@ -145,7 +145,7 @@ public class DownManager {
                     //更新进度
                     downInfo.progress += len;
 
-                    mFileOutputStream.write(buffer, 0, len);
+                    fileOutputStream.write(buffer, 0, len);
 
                     updateProgress(downInfo);
                 }
@@ -177,9 +177,9 @@ public class DownManager {
                     httpResult.close();
                 }
 
-                if (mFileOutputStream != null) {
+                if (fileOutputStream != null) {
                     try {
-                        mFileOutputStream.close();
+                        fileOutputStream.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                         //这里不用处理
